@@ -4,7 +4,7 @@ Based on the albums in the book "1001 Albums You Must Hear Before You Die", this
 
 # Table of content
 1. [Tech](#Tech)
-2. [Acknowledements](#Acknowledgements)
+2. [Acknowledgements](#Acknowledgements)
 3. [Lessons learned](#Lessons-learned)
 4. [License](#License)
 
