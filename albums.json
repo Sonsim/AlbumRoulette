@@ -1,0 +1,65 @@
+{
+    "albums": [
+        {
+            "title": "Master of Puppets",
+            "artist": "Metllica",
+            "release": 1986,
+            "genre": "Metal"
+        },
+        {
+            "title": "Blue",
+            "artist": "Joni Mitchell",
+            "release": 1971,
+            "genre": "Folk"
+        },
+        {
+            "title": "Hunky Dory",
+            "artist": "David Bowie",
+            "release": 1971,
+            "genre": "Pop Rock"
+        },
+        {
+            "title": "Here's Little Richard",
+            "artist": "Little Richard",
+            "release": 1957,
+            "genre": "Rock and roll"
+        },
+        {
+            "title": "At Newport 1960",
+            "artist": "Muddy Waters",
+            "release": 1960,
+            "genre": "Blues"
+        },
+        {
+           "title": "Stardust",
+           "artist": "Willie Nelson",
+           "release": 1978,
+           "genre": "Folk" 
+        },
+        {
+            "title": "Straight Outta Compton",
+            "artist": "N.W.A",
+            "release": 1988,
+            "genre": "Hip hop"
+        }, 
+        {
+            "title": "Tracy Chapman",
+            "artist": "Tracy Chapman",
+            "release": 1988,
+            "genre": "Folk"
+        },
+        {
+            "title":"Rust in Peace",
+            "artist": "Megadeth",
+            "release": 1990,
+            "genre": "metal"
+        },
+        {
+            "title": "Frank",
+            "artist": "Amy Winehouse",
+            "release": 2003,
+            "genre": "R&B"
+        }
+
+    ]
+}
