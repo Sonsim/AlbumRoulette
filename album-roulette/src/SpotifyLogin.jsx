@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import music from '../albums.json';
 import Player from './Player';
 import AlbumTracks from './AlbumTracks';
-export default function SpotifyLogin() {
+
+export default function SpotifyLogin({AlbumData}) {
     {/*Variables used to set the authentication url */}
   const CLIENT_ID = "76c35aaf7270460788d6f737af45e6b5";
   const REDIRECT_URI = "http://localhost:5173/";
@@ -29,7 +29,7 @@ export default function SpotifyLogin() {
   {/*State variable keeping track of the albums returned by the Spotify Api on search */}
   const [albums, setAlbums] = useState([]);
    {/*State varible keeping track of the random album generated from the json-file */}
-  const [selectedAlbum, setSelectedAlbum] = useState({title:"",artist:""});
+  const [selectedAlbum, setSelectedAlbum] = useState({Title:"",Artist:""});
   
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function SpotifyLogin() {
 
   const SearchAlbums = async () => {
    
-    if (!selectedAlbum.artist || !selectedAlbum.title) {
+    if (!selectedAlbum.Artist || !selectedAlbum.Title) {
       console.error('Artist or title is missing');
       return;
     }
@@ -61,7 +61,7 @@ export default function SpotifyLogin() {
           Authorization: `Bearer ${token}`
         },
         params: {
-          q: `${selectedAlbum.artist} ${selectedAlbum.title}`,
+          q: `${selectedAlbum.Artist} ${selectedAlbum.Title}`,
           type: "album",
           limit:  1
         }
@@ -80,11 +80,11 @@ export default function SpotifyLogin() {
 
   const WrapperFunction = () => {
    
-    const rndAlbum = music.albums[Math.floor(Math.random() * music.albums.length)];
+    const rndAlbum = AlbumData[Math.floor(Math.random() * AlbumData.length)];
     setSelectedAlbum(rndAlbum);
+    console.log(selectedAlbum)
   
   };
-
   return (
     <div className='flex flex-row' >
       {!token ? (
@@ -100,13 +100,13 @@ export default function SpotifyLogin() {
           <br />
              <div>
               <div className=' flex flex-col items-center'>
-             <h3 className='text-xl font-extrabold '>Selected album from the book</h3>
+             <h3 className='text-xl font-extrabold '>Selected album from the "1001 Albums You Must Hear Before You Die"</h3>
             <ul>
-                <li>{`Artist: ${selectedAlbum?.artist}`}</li>
-                <li>{`Album: ${selectedAlbum?.title}`}</li>
+                <li>{`Artist: ${selectedAlbum?.Artist}`}</li>
+                <li>{`Album: ${selectedAlbum?.Title}`}</li>
             </ul>
             </div>
-            {albums[0] != undefined && albums[0].artists[0].name == selectedAlbum.artist?
+            {albums[0] != undefined && albums[0].artists[0].name == selectedAlbum.Artist?
             <>
             <div className='flex flex-row'>
             <div className='flex flex-col '>
@@ -114,12 +114,12 @@ export default function SpotifyLogin() {
                 
                     {albums.length > 0 && <Player accesstoken={token} albumUri={albums[0].uri} />}
                     </div>
-                <div className='items-center bg-violet-400'>
+                <div className='items-center '>
                     {albums.length > 0 && <AlbumTracks accessToken={token} albumID={albums[0].id} />} 
                 </div>
                 </div>
                   </>
-            :  <div><h2 className='text-xl font-bold dark: black'> {selectedAlbum.title} by {selectedAlbum.artist} is not on Spotify. Check your local record store!</h2></div> }
+            :  <div><h2 className='text-xl font-bold dark: black'> {selectedAlbum.Title == ""?` `:  ` ${selectedAlbum.Title} by ${selectedAlbum.Artist} is not on Spotify. Check your local record store!`}</h2></div> }
           </div> 
           
         </>

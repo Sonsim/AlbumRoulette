@@ -1,6 +1,8 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 import vinyl from './assets/vinyl.png'
 import './App.css'
+import axios from 'axios'
 
 export default function Header(){
     return (
