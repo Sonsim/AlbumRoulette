@@ -17,9 +17,6 @@ const config = {
   },
 };
 
-/*app.get("/", (req, res) => {
-  return res.json("From backend");
-});*/
 app.get("/", (req, res) => {
   sql.connect(config, (err) => {
     if (err) console.log(err);

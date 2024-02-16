@@ -8,7 +8,7 @@ import axios from 'axios'
 
 
 function App() {
-  const [test, setTest] = useState(() =>[]);
+  const [SQLData, setTest] = useState(() =>[]);
 
     useEffect(()=>{
         axios.get("http://localhost:5174/").then((data)=>{
@@ -19,7 +19,7 @@ function App() {
   return (
     <>
     <Header/>
-      <SpotifyLogin AlbumData={test} />
+      <SpotifyLogin AlbumData={SQLData} />
       
     </>
   )

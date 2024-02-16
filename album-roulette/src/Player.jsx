@@ -11,8 +11,8 @@ export default function Player({accesstoken, albumUri}){
            token = {accesstoken}
            showSaveIcon
            initialVolume={20}
-           uris={albumUri ? [albumUri] : []} 
-           
+           layout='responsive'
+           uris={albumUri ? [albumUri] : []}
         />
         </>
     ) 

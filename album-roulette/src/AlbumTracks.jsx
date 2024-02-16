@@ -38,7 +38,7 @@ const ShowTracks = songs.map(song => <li key={song.id}>{song.name} </li>)
                 {ShowTracks}
             </ul>
             :
-            <div></div>}
+            <div>Track data unvailable</div>}
         </>
     )
 }
