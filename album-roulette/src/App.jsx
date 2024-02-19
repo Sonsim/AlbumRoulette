@@ -8,17 +8,17 @@ import axios from 'axios'
 
 
 function App() {
-  const [SQLData, setTest] = useState(() =>[]);
+  const [SQLData, setSQLData] = useState(() =>[]);
 
     useEffect(()=>{
-        axios.get("http://localhost:5174/").then((data)=>{
-            setTest(data.data.recordset)
+        axios.get("http://localhost:5174/api/get").then((data)=>{
+            setSQLData(data.data.recordset)
         
         });
     }, [])
   return (
     <>
-    <Header/>
+    <Header data={SQLData}/>
       <SpotifyLogin AlbumData={SQLData} />
       
     </>

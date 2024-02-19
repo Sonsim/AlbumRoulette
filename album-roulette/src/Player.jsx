@@ -13,6 +13,7 @@ export default function Player({accesstoken, albumUri}){
            initialVolume={20}
            layout='responsive'
            uris={albumUri ? [albumUri] : []}
+           
         />
         </>
     ) 

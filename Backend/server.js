@@ -17,7 +17,7 @@ const config = {
   },
 };
 
-app.get("/", (req, res) => {
+app.get("/api/get", (req, res) => {
   sql.connect(config, (err) => {
     if (err) console.log(err);
 
