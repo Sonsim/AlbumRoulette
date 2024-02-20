@@ -3,25 +3,35 @@ import './App.css'
 import Header from './Header'
 import SpotifyLogin from './SpotifyLogin'
 import axios from 'axios'
+import Login from './Login'
 
 
 
 
 function App() {
   const [SQLData, setSQLData] = useState(() =>[]);
-
+  const [IsLoggedIn, setIsLoggedIn] = useState(false);
     useEffect(()=>{
-        axios.get("http://localhost:5174/api/get").then((data)=>{
+        axios.get("http://localhost:5174/api/get/albums").then((data)=>{
             setSQLData(data.data.recordset)
         
         });
     }, [])
+
+function handleLoggedin(){
+  if(IsLoggedIn == true){
+    setIsLoggedIn(false)
+  }
+  else setIsLoggedIn(true)
+}
   return (
     <>
-    <Header data={SQLData}/>
-      <SpotifyLogin AlbumData={SQLData} />
+    
+    {IsLoggedIn ? 
+      <><Header data={SQLData} SetLogged={handleLoggedin}/><SpotifyLogin AlbumData={SQLData} /></>
+      : <Login setLoggedIn={handleLoggedin} />}
       
-    </>
+  </>
   )
 }
 

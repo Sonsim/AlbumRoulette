@@ -4,7 +4,7 @@ import vinyl from './assets/vinyl.png'
 import './App.css'
 import Dropdown from './Dropdown'
 
-export default function Header(data){
+export default function Header({data, SetLogged}){
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-700">
             <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
@@ -12,7 +12,7 @@ export default function Header(data){
                 <h1 className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">Placeholder title</h1>
                 <Dropdown data={data} />
                 <button className="self-center text-1xl font-semibold whitespace-nowrap dark:text-white">Placeholder 2</button>
-                <button className="self-center text-1xl font-semibold whitespace-nowrap dark:text-white">Placeholder 3</button>
+                <button onClick={SetLogged} className="self-center text-1xl font-semibold whitespace-nowrap dark:text-white">Log Out</button>
             </div>
         </nav>
     )

@@ -9,7 +9,7 @@ export default function Dropdown({data}){
  
     }
     
-   const Genrelist = data.data.map(album => <li key={album.ID}>{album.Genre}</li>)
+   const Genrelist = data.map(album => <li key={album.ID}>{album.Genre}</li>)
     return(
         <div>
             <button className='self-center text-1xl font-semibold whitespace-nowrap dark:text-white relative ' onClick={handleOpen}>

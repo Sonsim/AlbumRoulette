@@ -17,12 +17,24 @@ const config = {
   },
 };
 
-app.get("/api/get", (req, res) => {
+app.get("/api/get/albums", (req, res) => {
   sql.connect(config, (err) => {
     if (err) console.log(err);
 
     const request = new sql.Request();
     request.query("SELECT * FROM AlbumTable", (err, result) => {
+      if (err) console.log(err);
+      res.send(result);
+    });
+  });
+});
+
+app.get("/api/get/users", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) console.log(err);
+
+    const request = new sql.Request();
+    request.query("SELECT * FROM Users", (err, result) => {
       if (err) console.log(err);
       res.send(result);
     });
