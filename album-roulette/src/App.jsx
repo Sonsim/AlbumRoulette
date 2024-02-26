@@ -4,7 +4,7 @@ import Header from './Header'
 import SpotifyLogin from './SpotifyLogin'
 import axios from 'axios'
 import Login from './Login'
-
+import Register from './Register'
 
 
 
@@ -26,10 +26,11 @@ function handleLoggedin(){
 }
   return (
     <>
-    
-    {IsLoggedIn ? 
+
+     <Register /> 
+   {/* {IsLoggedIn ? 
       <><Header data={SQLData} SetLogged={handleLoggedin}/><SpotifyLogin AlbumData={SQLData} /></>
-      : <Login setLoggedIn={handleLoggedin} />}
+   : <Login setLoggedIn={handleLoggedin} />} */}
       
   </>
   )
