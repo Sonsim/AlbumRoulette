@@ -4,16 +4,34 @@ import {createHash } from 'crypto'
 
 
 export default function RegisterNew(){
+    // Boolean to track if username is available or not
     const [IsAvailable, setIsAvailable] = useState(true);
-
+    // Message displayed to user if password is valid or invalid
+    const [passwordMessage, setPasswordMessage] = useState("");
+    // Statevariable used to store the username, password and confirmed password
     const [userState, setUserState] = useState({
         username:"",
         password: "",
         confirmPassword: "",
 
     })
-
-
+    // function to validate the users password against regex(password must be minimum eight characters and contain one capital letter, one special character, one small letter and one number )
+    const validatePassword = () => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if(userState.password == ""){
+            setPasswordMessage("Please enter password")
+            return false;
+        }
+        else if(passwordRegex.test(userState.password)){
+            setPasswordMessage("Password is vaild")
+            return true;
+        }
+        else if (!passwordRegex.test(userState.password)){
+            setPasswordMessage("Password is invalid")
+            return false;
+        }
+    }
+    // function to take the userinputs and add them to userState variable
     const handleChange = (e) =>{
         e.preventDefault();
         const {name, value} = e.target;
@@ -22,15 +40,15 @@ export default function RegisterNew(){
             [name] : value
         }))
         setIsAvailable(true)
+        validatePassword();
     }
 
-    
-  
+    // function to hash password before sending to database
     const hashpassword = (string) =>{
         return createHash('sha256').update(string).digest('hex');
     }
 
-
+    //Sends the userinformation to the database and inserts the data into a specific table
     const register = () => {
         axios.post('http://localhost:5174/api/post/register', {
         
@@ -40,8 +58,9 @@ export default function RegisterNew(){
         }).then((response) => {
             console.log(response)
         })
+        
     }
-
+    //Searches the database for a match to the userinputs. Returns false if it finds a match and true if nothing is found
     const CheckUsername = async (name) => {
             const response = await axios.get(`http://localhost:5174/api/get/username/${name}`);
             for (let i = 0; i < response.data.recordset.length; i++) {
@@ -57,8 +76,9 @@ export default function RegisterNew(){
 
             return true;
     }
+    //checcks if the two different passwordinputs matches eachothter or not. Returs true if match, false if no match
     const CheckPassword = () =>{
-        if(userState.password.toLowerCase() == userState.confirmPassword.toLowerCase()){
+        if(userState.password == userState.confirmPassword){
             
             return true
         }
@@ -67,13 +87,14 @@ export default function RegisterNew(){
             return false
         }
     }
-
+    //runs all other functions when button is clicked. Waits for the result of CheckUsername, ChechPassword, and validatePassword before running register() if the right conditions is matched.
     const wrapper = async (e) => {
         e.preventDefault();
         
-            var noe = await CheckUsername(userState.username);
-            var noe2 = await CheckPassword();
-                if(noe && noe2){
+            var usernameCheck = await CheckUsername(userState.username);
+            var passwordCheck = await CheckPassword();
+            var passwordRegex = await validatePassword();
+                if(usernameCheck && passwordCheck && passwordRegex){
                     console.log("Kjør registrering")
                     register();
                 }
@@ -93,7 +114,8 @@ export default function RegisterNew(){
                     {IsAvailable? <></> : <p className="text-red-600">{userState.username} already exists</p>}
 
                     <label>Password:</label>
-                    <input name="password" className="border-solid border-2" type="password" onChange={handleChange} />
+                    <input name="password" className="border-solid border-2"  type="password"  onChange={handleChange} />
+                    <p>{passwordMessage}</p>
 
                     <label>Repeat password: </label>
                     <input name="confirmPassword" className="border-solid border-2" type="password" onChange={handleChange}/>
