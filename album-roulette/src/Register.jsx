@@ -3,7 +3,7 @@ import axios from 'axios'
 import {createHash } from 'crypto'
 
 
-export default function RegisterNew(){
+export default function RegisterNew({hashFunction}){
     // Boolean to track if username is available or not
     const [IsAvailable, setIsAvailable] = useState(true);
     // Message displayed to user if password is valid or invalid
@@ -42,12 +42,11 @@ export default function RegisterNew(){
         setIsAvailable(true)
         validatePassword();
     }
-
-    // function to hash password before sending to database
     const hashpassword = (string) =>{
         return createHash('sha256').update(string).digest('hex');
     }
-
+    
+ 
     //Sends the userinformation to the database and inserts the data into a specific table
     const register = () => {
         axios.post('http://localhost:5174/api/post/register', {
@@ -55,8 +54,8 @@ export default function RegisterNew(){
             username: userState.username, 
             password: hashpassword(userState.password),
             
-        }).then((response) => {
-            console.log(response)
+        }).then(() => {
+            console.log("Registrert!")
         })
         
     }
@@ -120,7 +119,7 @@ export default function RegisterNew(){
                     <label>Repeat password: </label>
                     <input name="confirmPassword" className="border-solid border-2" type="password" onChange={handleChange}/>
 
-                    {userState.password.toLowerCase() == userState.confirmPassword.toLowerCase()? <></> : <p className="text-red-600">Password do not match!</p>}
+                    {userState.password == userState.confirmPassword? <></> : <p className="text-red-600">Password do not match!</p>}
 
                     <button onClick={wrapper}>Register</button>
                 </form>

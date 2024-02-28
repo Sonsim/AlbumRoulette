@@ -33,7 +33,7 @@ app.get("/api/get/albums", (req, res) => {
 app.get("/api/get/username/:username", (req, res) => {
   sql.connect(config, (err) => {
     if (err) {
-      console.error("Error connectiong", err);
+      console.error("Error connecting", err);
       return;
     }
 
@@ -42,6 +42,27 @@ app.get("/api/get/username/:username", (req, res) => {
       `SELECT Username FROM Users Where Username='${req.params.username}'`,
       (err, result) => {
         if (err) console.log(err);
+        res.send(result);
+      }
+    );
+  });
+});
+
+app.post("/api/get/user-login", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) {
+      console.error("Error connecting", err);
+      return;
+    }
+    const request = new sql.Request();
+    const username = req.body.user;
+    const password = req.body.pass;
+    request.query(
+      `SELECT * FROM Users Where Username='${username}' AND PasswordHash='${password}'`,
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
         res.send(result);
       }
     );

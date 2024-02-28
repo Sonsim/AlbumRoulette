@@ -26,11 +26,9 @@ function handleLoggedin(){
 }
   return (
     <>
-
-     <Register /> 
-   {/* {IsLoggedIn ? 
+   {IsLoggedIn ? 
       <><Header data={SQLData} SetLogged={handleLoggedin}/><SpotifyLogin AlbumData={SQLData} /></>
-   : <Login setLoggedIn={handleLoggedin} />} */}
+   : <Login setLoggedIn={handleLoggedin} />} 
       
   </>
   )
