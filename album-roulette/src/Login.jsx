@@ -3,7 +3,9 @@ import RegisterNew from "./Register"
 import axios from 'axios'
 import {createHash } from 'crypto'
 
+
 export default function Login({setLoggedIn}){
+    
     const [NewUser, setNewUser] = useState(false);
     const [userInfo, setUserInfo] = useState({
         username: "",
@@ -18,6 +20,7 @@ export default function Login({setLoggedIn}){
         }))
     }
     const Login = (e) => {
+        
         e.preventDefault();
         axios.post('http://localhost:5174/api/get/user-login', {
             
@@ -26,8 +29,8 @@ export default function Login({setLoggedIn}){
             
         }).then(response => {
             if(response.data.recordset.length >0 && response.data.recordset.length < 2){
-                console.log("Her setter vi session token")
-                setLoggedIn();
+                console.log("Logg inn!")
+                setLoggedIn(response.data.recordset[0].Username)
             }
             else {
                 console.log("Får ingen token")
@@ -56,7 +59,7 @@ export default function Login({setLoggedIn}){
                     </form>
                 </div>
             </div>
-            : <RegisterNew hashFunction={hashpassword}/> }
+            : <RegisterNew hashFunction={hashpassword} setLogg={setLoggedIn}/> }
         </>
     )
 }

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import SpotifyContent from './SpotifyContent';
 import AlbumSearch from './AlbumSearch';
 
-export default function SpotifyLogin({AlbumData}) {
+export default function SpotifyLogin({AlbumData, token, setToken}) {
     {/*Variables used to set the authentication url */}
-  const CLIENT_ID = "76c35aaf7270460788d6f737af45e6b5";
+  const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
   const REDIRECT_URI = "http://localhost:5173/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
@@ -24,7 +24,7 @@ export default function SpotifyLogin({AlbumData}) {
   ];
   
   {/*State variable keeping track of the accesstoken needed to use the Spotify Api */}
-  const [token, setToken] = useState("");
+  //const [token, setToken] = useState("");
   {/*State variable keeping track of the albums returned by the Spotify Api on search */}
   const [albums, setAlbums] = useState([]);
    {/*State varible keeping track of the random album generated from the database */}
@@ -39,7 +39,7 @@ export default function SpotifyLogin({AlbumData}) {
       window.location.hash = "";
       window.localStorage.setItem("token", token);
     }
-    setToken(token);
+    setToken(token || ""); // Set token to an empty string if not found in local storage
   }, []);
 
   // Log out of Spotify and delete the access token

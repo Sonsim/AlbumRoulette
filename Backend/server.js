@@ -23,6 +23,7 @@ app.get("/api/get/albums", (req, res) => {
     if (err) console.log(err);
 
     const request = new sql.Request();
+    const tableName = req.body.tableName;
     request.query("SELECT * FROM AlbumTable", (err, result) => {
       if (err) console.log(err);
       res.send(result);
@@ -47,7 +48,22 @@ app.get("/api/get/username/:username", (req, res) => {
     );
   });
 });
-
+app.get("/api/get/userid/:username", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) {
+      console.error("Error connecting", err);
+      return;
+    }
+    const request = new sql.Request();
+    request.query(
+      `SELECT UserID FROM Users Where Username='${req.params.username}'`,
+      (err, result) => {
+        if (err) console.log(err);
+        res.send(result);
+      }
+    );
+  });
+});
 app.post("/api/get/user-login", (req, res) => {
   sql.connect(config, (err) => {
     if (err) {
@@ -98,6 +114,61 @@ app.post("/api/post/register", (req, res) => {
   });
 });
 
+app.post("/api/post/createtable", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) {
+      console.error("Error connecting to database:", err);
+      res.status(500).send("Error connecting to database");
+      return;
+    }
+    const request = new sql.Request();
+    const foreignKey = req.body.foreignKey;
+    const tableName = req.body.tableName;
+    const sqlQuery = `CREATE TABLE [${tableName}] (
+      Id INT NOT NULL IDENTITY PRIMARY KEY,
+      Title VARCHAR(200),
+      Artist VARCHAR(200),
+      Genre VARCHAR(200),
+      Release_Year INT,
+      Number_of_Songs INT,
+      Is_Heard BIT,
+    )`;
+    console.log(tableName);
+    console.log(foreignKey);
+    request.query(sqlQuery, (err, result) => {
+      if (err) {
+        console.error("Error executing query:", err);
+        res.status(500).send("Error creating table");
+        return;
+      }
+      console.log("Table created successfully", result);
+      res.send(result);
+    });
+  });
+});
+app.post("/api/post/fill", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) {
+      console.error("Error connecting to database:", err);
+      res.status(500).send("Error connecting to database");
+      return;
+    }
+
+    const request = new sql.Request();
+    const tableName = req.body.tableName;
+    const sqlQuery = `INSERT INTO [${tableName}] (Title, Artist, Genre, Release_Year, Number_of_Songs, Is_Heard) SELECT Title, Artist, Genre, Release_Year, Number_of_Songs, Is_Heard FROM AlbumTable`;
+
+    request.query(sqlQuery, (err, result) => {
+      if (err) {
+        console.error("Error executing query:", err);
+        res.status(500).send("Error creating table");
+        return;
+      }
+      console.log("Data insereted successfully", result);
+      res.send(result);
+    });
+  });
+});
 app.listen(5174, () => {
   console.log("listening");
 });

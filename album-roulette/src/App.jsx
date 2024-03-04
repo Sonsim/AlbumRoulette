@@ -4,13 +4,13 @@ import Header from './Header'
 import SpotifyLogin from './SpotifyLogin'
 import axios from 'axios'
 import Login from './Login'
-import Register from './Register'
-
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 
 function App() {
-  const [SQLData, setSQLData] = useState(() =>[]);
-  const [IsLoggedIn, setIsLoggedIn] = useState(false);
+  const [SQLData, setSQLData] = useState([]);
+  const [UserLoggedIn, setUserLoggedIn] = useState("")
+  const [token, setToken] = useState("");
     useEffect(()=>{
         axios.get("http://localhost:5174/api/get/albums").then((data)=>{
             setSQLData(data.data.recordset)
@@ -18,16 +18,18 @@ function App() {
         });
     }, [])
 
-function handleLoggedin(){
-  if(IsLoggedIn == true){
-    setIsLoggedIn(false)
+function handleLoggedin(user){
+  if(user){
+    setUserLoggedIn(user)
   }
-  else setIsLoggedIn(true)
+}
+function handleLogOut() {
+  setUserLoggedIn("");
 }
   return (
     <>
-   {IsLoggedIn ? 
-      <><Header data={SQLData} SetLogged={handleLoggedin}/><SpotifyLogin AlbumData={SQLData} /></>
+   {UserLoggedIn != ""? 
+      <><Header data={SQLData} SetLogged={handleLogOut} name={UserLoggedIn} /><SpotifyLogin AlbumData={SQLData} token={token} setToken={setToken} /></>
    : <Login setLoggedIn={handleLoggedin} />} 
       
   </>

@@ -3,7 +3,7 @@ import axios from 'axios'
 import {createHash } from 'crypto'
 
 
-export default function RegisterNew({hashFunction}){
+export default function RegisterNew({hashFunction, setLogg}){
     // Boolean to track if username is available or not
     const [IsAvailable, setIsAvailable] = useState(true);
     // Message displayed to user if password is valid or invalid
@@ -46,19 +46,42 @@ export default function RegisterNew({hashFunction}){
         return createHash('sha256').update(string).digest('hex');
     }
     
- 
     //Sends the userinformation to the database and inserts the data into a specific table
-    const register = () => {
-        axios.post('http://localhost:5174/api/post/register', {
-        
-            username: userState.username, 
-            password: hashpassword(userState.password),
-            
-        }).then(() => {
-            console.log("Registrert!")
-        })
-        
-    }
+    const register = async () => {
+        try {
+            // Register the user
+            await axios.post('http://localhost:5174/api/post/register', {
+                username: userState.username, 
+                password: hashpassword(userState.password),
+            });
+    
+            // Get the user ID
+            const name = userState.username;
+            const response = await axios.get(`http://localhost:5174/api/get/userid/${name}`);
+            const userID = response.data.recordset[0].UserID;
+    
+            // Create table
+            const tableName = "User" +userID;
+            console.log(tableName)
+            console.log(userID)
+            const createTableResponse = await axios.post(`http://localhost:5174/api/post/createtable`, {
+                foreignKey: userID,
+                tableName: tableName,
+            });
+            // Fill new table with data
+            const insertDataToTable =  await axios.post(`http://localhost:5174/api/post/fill`, {
+                tableName: tableName
+            })
+    
+            console.log("Table created successfully:", createTableResponse.data);
+            console.log("User registered!");
+            console.log("Data inserted:", insertDataToTable.data)
+            setLogg(userState.username);
+        } catch (error) {
+            console.error("Error during registration:", error);
+            // Handle error appropriately, e.g., show error message to the user
+        }
+    };
     //Searches the database for a match to the userinputs. Returns false if it finds a match and true if nothing is found
     const CheckUsername = async (name) => {
             const response = await axios.get(`http://localhost:5174/api/get/username/${name}`);
@@ -102,6 +125,24 @@ export default function RegisterNew({hashFunction}){
                 }
             
         }
+    const test = async (e) =>{
+        e.preventDefault();
+        let name = userState.username;
+        register()
+        const response = await axios.get(`http://localhost:5174/api/get/userid/${name}`);
+        const createTable = await axios.post(`http://localhost:5174/api/post/createtable`, {
+            foreignkey: response.data.recordset[0].UserID,
+            tableName: "USER" + response.data.recordset[0].UserID,
+        }).then(() => {
+            console.log("Funka!")
+        })
+        if(response) {
+            createTable;
+        } 
+        else(
+            console.log("Response funker ikke")
+        )
+    }
     return (
         <>
         <div className="flex items-center justify-center">
@@ -120,7 +161,7 @@ export default function RegisterNew({hashFunction}){
                     <input name="confirmPassword" className="border-solid border-2" type="password" onChange={handleChange}/>
 
                     {userState.password == userState.confirmPassword? <></> : <p className="text-red-600">Password do not match!</p>}
-
+                    <button onClick={test}>Test</button>
                     <button onClick={wrapper}>Register</button>
                 </form>
             </div>
