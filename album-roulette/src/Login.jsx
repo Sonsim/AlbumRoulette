@@ -2,6 +2,7 @@ import { useState } from "react"
 import RegisterNew from "./Register"
 import axios from 'axios'
 import {createHash } from 'crypto'
+import jwt from 'jsonwebtoken'
 
 
 export default function Login({setLoggedIn}){
@@ -29,8 +30,9 @@ export default function Login({setLoggedIn}){
             
         }).then(response => {
             if(response.data.recordset.length >0 && response.data.recordset.length < 2){
-                console.log("Logg inn!")
                 setLoggedIn(response.data.recordset[0].Username)
+                localStorage.setItem('user', response.data.recordset[0].Username)
+            
             }
             else {
                 console.log("Får ingen token")

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import SpotifyContent from './SpotifyContent';
 import AlbumSearch from './AlbumSearch';
 
-export default function SpotifyLogin({AlbumData, token, setToken}) {
+export default function SpotifyLogin({AlbumData}) {
     {/*Variables used to set the authentication url */}
-  const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
-  const REDIRECT_URI = "http://localhost:5173/";
+  const CLIENT_ID = "76c35aaf7270460788d6f737af45e6b5"
+  const REDIRECT_URI = "http://localhost:5173/home";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const SCOPES = [
@@ -24,7 +24,7 @@ export default function SpotifyLogin({AlbumData, token, setToken}) {
   ];
   
   {/*State variable keeping track of the accesstoken needed to use the Spotify Api */}
-  //const [token, setToken] = useState("");
+  const [token, setToken] = useState("");
   {/*State variable keeping track of the albums returned by the Spotify Api on search */}
   const [albums, setAlbums] = useState([]);
    {/*State varible keeping track of the random album generated from the database */}
@@ -32,15 +32,18 @@ export default function SpotifyLogin({AlbumData, token, setToken}) {
   
   // Storing access token from Spotify
   useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
+    const hash = window.location.hash
+    let token = window.localStorage.getItem("token")
+
     if (!token && hash) {
-      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
+        token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+
+        window.location.hash = ""
+        window.localStorage.setItem("token", token)
     }
-    setToken(token || ""); // Set token to an empty string if not found in local storage
-  }, []);
+
+    setToken(token)
+   }, []);
 
   // Log out of Spotify and delete the access token
   const logout = () => {
@@ -64,7 +67,7 @@ export default function SpotifyLogin({AlbumData, token, setToken}) {
   
   return (
     <>
-        <AlbumSearch selectedAlbum={selectedAlbum} token={token} albums={albums} setAlbums={setAlbums} />
+        <AlbumSearch selectedAlbum={selectedAlbum} token={token} albums={albums} setAlbums={setAlbums}/>
         <SpotifyContent AUTH_ENDPOINT={AUTH_ENDPOINT} CLIENT_ID={CLIENT_ID} REDIRECT_URI={REDIRECT_URI} SCOPES={SCOPES}
         RESPONSE_TYPE={RESPONSE_TYPE} WrapperFunction={WrapperFunction} selectedAlbum={selectedAlbum} albums={albums} token={token} logout={logout} />
     </>

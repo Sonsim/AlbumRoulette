@@ -125,24 +125,7 @@ export default function RegisterNew({hashFunction, setLogg}){
                 }
             
         }
-    const test = async (e) =>{
-        e.preventDefault();
-        let name = userState.username;
-        register()
-        const response = await axios.get(`http://localhost:5174/api/get/userid/${name}`);
-        const createTable = await axios.post(`http://localhost:5174/api/post/createtable`, {
-            foreignkey: response.data.recordset[0].UserID,
-            tableName: "USER" + response.data.recordset[0].UserID,
-        }).then(() => {
-            console.log("Funka!")
-        })
-        if(response) {
-            createTable;
-        } 
-        else(
-            console.log("Response funker ikke")
-        )
-    }
+  
     return (
         <>
         <div className="flex items-center justify-center">
@@ -161,7 +144,7 @@ export default function RegisterNew({hashFunction, setLogg}){
                     <input name="confirmPassword" className="border-solid border-2" type="password" onChange={handleChange}/>
 
                     {userState.password == userState.confirmPassword? <></> : <p className="text-red-600">Password do not match!</p>}
-                    <button onClick={test}>Test</button>
+        
                     <button onClick={wrapper}>Register</button>
                 </form>
             </div>

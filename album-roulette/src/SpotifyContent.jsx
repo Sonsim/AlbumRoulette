@@ -1,17 +1,17 @@
 import Player from './Player'
 import AlbumTracks from './AlbumTracks'
 
-export default function SpotifyContent({AUTH_ENDPOINT, CLIENT_ID, REDIRECT_URI, SCOPES, RESPONSE_TYPE, logout, WrapperFunction, selectedAlbum, albums, token, }){
-
+export default function SpotifyContent({AUTH_ENDPOINT, CLIENT_ID, REDIRECT_URI, SCOPES, RESPONSE_TYPE, logout, WrapperFunction, selectedAlbum, albums,token}){
+ 
     return (
         <>
         <div className='flex flex-row' >
     
-      {!token ? (
+      {!token ? 
         <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES.join("%20")}&response_type=${RESPONSE_TYPE}`}>Log in with Spotify</a>
-      ) : 
+       : 
       
-      (
+      
         <>
           <div className='flex-col flex w-1/4'> 
             <button onClick={logout} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow w-48">Log out of Spotify</button>
@@ -45,7 +45,7 @@ export default function SpotifyContent({AUTH_ENDPOINT, CLIENT_ID, REDIRECT_URI, 
           </div> 
           
         </>
-      )}
+      }
     </div>
         </>
     )

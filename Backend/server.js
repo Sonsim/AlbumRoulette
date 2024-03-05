@@ -2,10 +2,12 @@ const express = require("express");
 const sql = require("mssql/msnodesqlv8");
 const cors = require("cors");
 const app = express();
-
+require("dotenv").config();
+const client_id = process.env.SPOTIFY_CLIENT_ID;
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 app.use(express.json());
 app.use(cors());
-
+console.log(client_id);
 const config = {
   user: "AlbumRoulette",
   password: "test123",
