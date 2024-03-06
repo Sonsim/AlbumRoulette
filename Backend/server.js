@@ -3,11 +3,11 @@ const sql = require("mssql/msnodesqlv8");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
-const client_id = process.env.SPOTIFY_CLIENT_ID;
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+
 app.use(express.json());
 app.use(cors());
-console.log(client_id);
+app.use(express.urlencoded({ extended: true }));
+
 const config = {
   user: "AlbumRoulette",
   password: "test123",
@@ -20,16 +20,25 @@ const config = {
   },
 };
 
-app.get("/api/get/albums", (req, res) => {
+app.get("/api/get/albums/:tablename", (req, res) => {
   sql.connect(config, (err) => {
     if (err) console.log(err);
 
     const request = new sql.Request();
-    const tableName = req.body.tableName;
-    request.query("SELECT * FROM AlbumTable", (err, result) => {
+    request.query(`SELECT * FROM ${req.params.tablename}`, (err, result) => {
       if (err) console.log(err);
       res.send(result);
     });
+  });
+});
+
+app.post("/api/post/song/", (req, res) => {
+  sql.connect(condig, (err) => {
+    if (err) console.log(err);
+    const request = new sql.Request();
+    const song = req.body.song;
+    const table = req.body.table;
+    request.query(``);
   });
 });
 

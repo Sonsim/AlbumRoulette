@@ -2,11 +2,12 @@ import { useState } from "react"
 import RegisterNew from "./Register"
 import axios from 'axios'
 import {createHash } from 'crypto'
-import jwt from 'jsonwebtoken'
+import { useNavigate } from "react-router-dom"
+
 
 
 export default function Login({setLoggedIn}){
-    
+    const navigate = useNavigate()
     const [NewUser, setNewUser] = useState(false);
     const [userInfo, setUserInfo] = useState({
         username: "",
@@ -31,8 +32,9 @@ export default function Login({setLoggedIn}){
         }).then(response => {
             if(response.data.recordset.length >0 && response.data.recordset.length < 2){
                 setLoggedIn(response.data.recordset[0].Username)
-                localStorage.setItem('user', response.data.recordset[0].Username)
-            
+                localStorage.setItem('user', response.data.recordset[0].Username);
+                localStorage.setItem('userID', response.data.recordset[0].UserId)
+                navigate('/home')
             }
             else {
                 console.log("Får ingen token")

@@ -1,9 +1,11 @@
 import { useState} from "react";
 import axios from 'axios'
 import {createHash } from 'crypto'
+import { useNavigate } from "react-router-dom"
 
 
 export default function RegisterNew({hashFunction, setLogg}){
+    const navigate = useNavigate()
     // Boolean to track if username is available or not
     const [IsAvailable, setIsAvailable] = useState(true);
     // Message displayed to user if password is valid or invalid
@@ -72,10 +74,6 @@ export default function RegisterNew({hashFunction, setLogg}){
             const insertDataToTable =  await axios.post(`http://localhost:5174/api/post/fill`, {
                 tableName: tableName
             })
-    
-            console.log("Table created successfully:", createTableResponse.data);
-            console.log("User registered!");
-            console.log("Data inserted:", insertDataToTable.data)
             setLogg(userState.username);
         } catch (error) {
             console.error("Error during registration:", error);
@@ -119,6 +117,7 @@ export default function RegisterNew({hashFunction, setLogg}){
                 if(usernameCheck && passwordCheck && passwordRegex){
                     console.log("Kjør registrering")
                     register();
+                    navigate("/home")
                 }
                 else {
                     console.log("feiler")

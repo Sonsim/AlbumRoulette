@@ -1,10 +1,18 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, } from 'react'
 import vinyl from './assets/vinyl.png'
 import './App.css'
 import Dropdown from './Dropdown'
+import { useNavigate } from 'react-router-dom'
 
-export default function Header({data, SetLogged, name}){
+export default function Header({data,name, setUserLoggedIn}){
+    const navigate = useNavigate()
+
+    const logout = () => {
+        setUserLoggedIn(null);
+        localStorage.clear();
+        navigate("/login")
+    }
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-700">
             
@@ -14,7 +22,7 @@ export default function Header({data, SetLogged, name}){
                 <h1 className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white mr-8">Welcome {name}</h1>
                 <Dropdown data={data} />
                 <button className="self-center text-1xl font-semibold whitespace-nowrap dark:text-white">Placeholder 2</button>
-                <button onClick={SetLogged} className="self-center text-1xl font-semibold whitespace-nowrap dark:text-white">Log Out</button>
+                <button onClick={logout} className="self-center text-1xl font-semibold whitespace-nowrap dark:text-white">Log Out</button>
                 </div>
                 :
                 <div className='max-w-screen-xl flex flex-wrap items-center mx-auto p-4'>

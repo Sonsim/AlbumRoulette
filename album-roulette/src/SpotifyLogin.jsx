@@ -23,6 +23,8 @@ export default function SpotifyLogin({AlbumData}) {
     "user-read-playback-position",
   ];
   
+  
+
   {/*State variable keeping track of the accesstoken needed to use the Spotify Api */}
   const [token, setToken] = useState("");
   {/*State variable keeping track of the albums returned by the Spotify Api on search */}
@@ -30,21 +32,23 @@ export default function SpotifyLogin({AlbumData}) {
    {/*State varible keeping track of the random album generated from the database */}
   const [selectedAlbum, setSelectedAlbum] = useState({Title:"",Artist:"", Genre: "", Is_Heard: false, Number_of_Songs: 0,Release_Year:0 });
   
+  
   // Storing access token from Spotify
   useEffect(() => {
     const hash = window.location.hash
     let token = window.localStorage.getItem("token")
 
     if (!token && hash) {
+       
         token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-
+        import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN = token;
         window.location.hash = ""
         window.localStorage.setItem("token", token)
     }
-
+ 
     setToken(token)
    }, []);
-
+   
   // Log out of Spotify and delete the access token
   const logout = () => {
     setToken("");
@@ -69,7 +73,7 @@ export default function SpotifyLogin({AlbumData}) {
     <>
         <AlbumSearch selectedAlbum={selectedAlbum} token={token} albums={albums} setAlbums={setAlbums}/>
         <SpotifyContent AUTH_ENDPOINT={AUTH_ENDPOINT} CLIENT_ID={CLIENT_ID} REDIRECT_URI={REDIRECT_URI} SCOPES={SCOPES}
-        RESPONSE_TYPE={RESPONSE_TYPE} WrapperFunction={WrapperFunction} selectedAlbum={selectedAlbum} albums={albums} token={token} logout={logout} />
+  RESPONSE_TYPE={RESPONSE_TYPE} WrapperFunction={WrapperFunction} selectedAlbum={selectedAlbum} albums={albums} token={token} logout={logout} /> 
     </>
 
   )

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 
 
 export default function Dropdown({data}){
@@ -9,7 +9,16 @@ export default function Dropdown({data}){
  
     }
     
-   const Genrelist = data.map(album => <li key={album.ID}>{album.Genre}</li>)
+    const GenreArray = []
+    const FillArray = () => {
+        data.map((album) => {
+            if (album.Is_Heard == 1){
+                GenreArray.push(album)
+            }
+        })
+    }
+    FillArray();
+    console.log(GenreArray)
     return(
         <div>
             <button className='self-center text-1xl font-semibold whitespace-nowrap dark:text-white relative ' onClick={handleOpen}>
@@ -18,7 +27,7 @@ export default function Dropdown({data}){
             {open ? 
             <div>
                 <ul className='absolute bg-white w-32 bg-opacity-90'>
-                  {Genrelist}
+                  
                 </ul>
             </div>
                 : <div></div>

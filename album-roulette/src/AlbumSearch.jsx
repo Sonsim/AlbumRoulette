@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 export default function AlbumSearch({selectedAlbum, token, albums, setAlbums}) {
     const SearchAlbums = async () => {
-   
+       
         if (!selectedAlbum.Artist || !selectedAlbum.Title) {
           console.error('Artist or title is missing');
           return;
