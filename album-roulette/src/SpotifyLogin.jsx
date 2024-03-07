@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyContent from './SpotifyContent';
 import AlbumSearch from './AlbumSearch';
+import axios from 'axios'
 
 export default function SpotifyLogin({AlbumData}) {
     {/*Variables used to set the authentication url */}
@@ -23,7 +24,7 @@ export default function SpotifyLogin({AlbumData}) {
     "user-read-playback-position",
   ];
   
-  
+  const userID = 'User' + localStorage.getItem('userID')
 
   {/*State variable keeping track of the accesstoken needed to use the Spotify Api */}
   const [token, setToken] = useState("");
@@ -68,12 +69,15 @@ export default function SpotifyLogin({AlbumData}) {
     // Sets the selectedAlbum variable to the same as the random album
     setSelectedAlbum(rndAlbum);
   };
+
+  
   
   return (
     <>
         <AlbumSearch selectedAlbum={selectedAlbum} token={token} albums={albums} setAlbums={setAlbums}/>
         <SpotifyContent AUTH_ENDPOINT={AUTH_ENDPOINT} CLIENT_ID={CLIENT_ID} REDIRECT_URI={REDIRECT_URI} SCOPES={SCOPES}
-  RESPONSE_TYPE={RESPONSE_TYPE} WrapperFunction={WrapperFunction} selectedAlbum={selectedAlbum} albums={albums} token={token} logout={logout} /> 
+        RESPONSE_TYPE={RESPONSE_TYPE} WrapperFunction={WrapperFunction} selectedAlbum={selectedAlbum} albums={albums} 
+        token={token} logout={logout}  userID={userID}/> 
     </>
 
   )

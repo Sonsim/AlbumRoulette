@@ -32,16 +32,34 @@ app.get("/api/get/albums/:tablename", (req, res) => {
   });
 });
 
-app.post("/api/post/song/", (req, res) => {
-  sql.connect(condig, (err) => {
+app.post("/api/post/album_heard", (req, res) => {
+  sql.connect(config, (err) => {
     if (err) console.log(err);
     const request = new sql.Request();
-    const song = req.body.song;
+    const album = req.body.album;
     const table = req.body.table;
-    request.query(``);
+
+    request.query(
+      `UPDATE ${table} SET Is_Heard=1 WHERE Title='${album}'`,
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        res.send(result);
+      }
+    );
   });
 });
-
+app.post("/api/post/setscore", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) console.log(err);
+    const request = new sql.Request();
+    const score = req.body.score;
+    const album = req.body.album;
+    const table = req.body.table;
+    request.query(`Update ${table} Set Score=${score} WHERE tITLE='${album}'`);
+  });
+});
 app.get("/api/get/username/:username", (req, res) => {
   sql.connect(config, (err) => {
     if (err) {
@@ -143,6 +161,7 @@ app.post("/api/post/createtable", (req, res) => {
       Release_Year INT,
       Number_of_Songs INT,
       Is_Heard BIT,
+      Score Decimal,
     )`;
     console.log(tableName);
     console.log(foreignKey);

@@ -39,7 +39,7 @@ function App() {
 	              <Routes>
 		                <Route path="/home" element={<Home AlbumData={SQLData} user={UserLoggedIn}/>} /> 
 		                <Route path="/login" element={ <Login setLoggedIn={setUserLoggedIn}/>} />
-		                <Route path='*' element={<Error error={isError}/>}/>
+		                <Route path='*' element={<Error error={isError} user={UserLoggedIn}/>}/>
 	              </Routes>
       </BrowserRouter> 
       

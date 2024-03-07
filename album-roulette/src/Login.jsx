@@ -13,6 +13,7 @@ export default function Login({setLoggedIn}){
         username: "",
         password: ""
     })
+    const [IsInvalid, setIsInvalid] = useState(false)
     const handleChange = (e) => {
         e.preventDefault();
         const {name, value} = e.target;
@@ -38,6 +39,7 @@ export default function Login({setLoggedIn}){
             }
             else {
                 console.log("Får ingen token")
+                setIsInvalid(true)
             }
         })
         
@@ -58,6 +60,7 @@ export default function Login({setLoggedIn}){
                     <form className="flex flex-col">
                         <label>Username:</label> <input name="username" type="text" onChange={handleChange} />
                         <label>Password:</label><input name="password" type="password" onChange={handleChange}/>
+                        {IsInvalid? <p className="text-red-600">Invalid Username or Password</p> :  <p></p>}
                         <button onClick={HandleRegister}>New User?</button>
                         <button onClick={Login}>Submit</button>
                     </form>

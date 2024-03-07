@@ -13,7 +13,7 @@ export default function Dropdown({data}){
     const FillArray = () => {
         data.map((album) => {
             if (album.Is_Heard == 1){
-                GenreArray.push(album)
+                GenreArray.push(album.Genre)
             }
         })
     }
@@ -27,11 +27,12 @@ export default function Dropdown({data}){
             {open ? 
             <div>
                 <ul className='absolute bg-white w-32 bg-opacity-90'>
-                  
+                  <li>test1</li>
+                  <li>test2</li>
+                  <li>test3</li>
                 </ul>
             </div>
-                : <div></div>
-}
+                : <div></div>}
         </div>
     )
 }
