@@ -20,6 +20,7 @@ export default function AlbumSearch({selectedAlbum, token, albums, setAlbums}) {
             }
           });
           // Sets Albums to the object found by searching Spotify
+          console.log(data.albums.items)
           setAlbums(data.albums.items);
         } catch (error) {
           console.error('Error searching albums:', error);

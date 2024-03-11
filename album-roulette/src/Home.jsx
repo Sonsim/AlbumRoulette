@@ -3,12 +3,12 @@ import { useNavigate, Link } from "react-router-dom";
 
 
 
-export default function Home({AlbumData, token, setToken, user}) {
+export default function Home({AlbumData, token, setToken, user, GenreArray}) {
     const navigate = useNavigate();
     return (
         <>
             {user ? 
-            <SpotifyLogin AlbumData={AlbumData} token={token} setToken={setToken} /> : 
+            <SpotifyLogin AlbumData={AlbumData} token={token} setToken={setToken} GenreArray={GenreArray}/> : 
             <div className="flex items-center justify-center">
             <div className="flex flex-col items-center justify-center h-72 w-72 mt-12 border-solid border-2">
                 Please log in or register new user

@@ -3,7 +3,7 @@ import SpotifyContent from './SpotifyContent';
 import AlbumSearch from './AlbumSearch';
 import axios from 'axios'
 
-export default function SpotifyLogin({AlbumData}) {
+export default function SpotifyLogin({AlbumData, GenreArray}) {
     {/*Variables used to set the authentication url */}
   const CLIENT_ID = "76c35aaf7270460788d6f737af45e6b5"
   const REDIRECT_URI = "http://localhost:5173/home";
@@ -77,7 +77,7 @@ export default function SpotifyLogin({AlbumData}) {
         <AlbumSearch selectedAlbum={selectedAlbum} token={token} albums={albums} setAlbums={setAlbums}/>
         <SpotifyContent AUTH_ENDPOINT={AUTH_ENDPOINT} CLIENT_ID={CLIENT_ID} REDIRECT_URI={REDIRECT_URI} SCOPES={SCOPES}
         RESPONSE_TYPE={RESPONSE_TYPE} WrapperFunction={WrapperFunction} selectedAlbum={selectedAlbum} albums={albums} 
-        token={token} logout={logout}  userID={userID}/> 
+        token={token} logout={logout}  userID={userID} GenreArray={GenreArray}/> 
     </>
 
   )
