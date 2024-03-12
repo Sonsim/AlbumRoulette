@@ -1,6 +1,6 @@
 # AlbumRoulette
 
-Based on the albums in the book "1001 Albums You Must Hear Before You Die", this website will allow the user to explore new music by getting a random album from the book. The user can add musical preferences and albums they have heard before, in order to better tailor the new album to the user and avoid music the they have heard before. 
+Based on the albums in the book "1001 Albums You Must Hear Before You Die", this website will allow the user to explore new music by getting a random album from the book and let the user play the record on Spotify. 
 
 # Table of content
 1. [Tech](#Tech)
@@ -9,7 +9,12 @@ Based on the albums in the book "1001 Albums You Must Hear Before You Die", this
 4. [License](#License)
 
 # Tech
-
+ - Vite 5.08
+ - TailwindCSS 3.4.1
+ - NodeJS
+ - Axios 1.6.7
+ - Microsoft SQL Server Managment Studio
+ - VSCode
 # Acknowledgements
 
 # Lessons learned
