@@ -21,7 +21,7 @@ export default function Home({
           GlobalData={GlobalData}
         />
       ) : (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center z-30 relative">
           <div className="flex flex-col items-center justify-center h-72 w-72 mt-12 border-solid border-2">
             Please log in or register new user
             <Link to="/login">To Login page</Link>

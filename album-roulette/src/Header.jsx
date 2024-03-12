@@ -23,10 +23,9 @@ export default function Header({ data, name, setUserLoggedIn }) {
     setActiveButton(1);
   };
   return (
-    <nav className="border-gray-200 bg-purple-950 h-1/6">
+    <nav className="border-gray-200 bg-zinc-900 h-1/6">
       {name != null ? (
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <img src={vinyl} alt="ingen logo" className="mb-4 w-16"></img>
           <h1 className="self-center text-5xl font-semibold whitespace-nowrap dark:text-white mr-8 ">
             Welcome {name}
           </h1>
@@ -58,12 +57,7 @@ export default function Header({ data, name, setUserLoggedIn }) {
           </button>
         </div>
       ) : (
-        <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4">
-          <img src={vinyl} alt="ingen logo" width="75px" className="mb-4"></img>
-          <h1 className="text-5xl font-semibold whitespace-nowrap dark:text-white ml-20">
-            Welcome{" "}
-          </h1>
-        </div>
+        <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4"></div>
       )}
     </nav>
   );

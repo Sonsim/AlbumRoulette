@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Error from "./Error";
 import Stats from "./Stats";
+import Background from "./Background";
 
 function App() {
   const [SQLData, setSQLData] = useState([]);
@@ -77,6 +78,7 @@ function App() {
         ) : (
           <div></div>
         )}
+        <Background />
         <Routes>
           <Route
             path="/home"

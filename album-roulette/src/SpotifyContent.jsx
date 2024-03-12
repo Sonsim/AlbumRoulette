@@ -1,6 +1,6 @@
 import Player from "./Player";
 import AlbumTracks from "./AlbumTracks";
-
+import Background from "./Background";
 import { useState } from "react";
 import axios from "axios";
 
@@ -59,7 +59,7 @@ export default function SpotifyContent({
   };
   return (
     <>
-      <div className="flex flex-row  h-5/6">
+      <div className="flex flex-row  h-5/6 relative z-30">
         {!token ? (
           <a
             className="ml-5"
@@ -73,7 +73,7 @@ export default function SpotifyContent({
           </a>
         ) : (
           <>
-            <div className="flex-col flex w-1/4">
+            <div className="flex-col flex w-1/4 mt-6">
               <button
                 onClick={logout}
                 className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
@@ -86,6 +86,38 @@ export default function SpotifyContent({
               >
                 Get random album
               </button>
+              <button
+                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48  ml-5 hover:bg-green-700"
+                onClick={OpenBox}
+              >
+                Finished listening?
+              </button>
+              {isFinished ? (
+                <div className="flex flex-col ml-4 bg-white rounded-lg w-11/12 items-center">
+                  <label>What score would you give the album?</label>
+
+                  <input
+                    name="score"
+                    type="number"
+                    max={10}
+                    min={1}
+                    onChange={handleScoreChange}
+                  />
+                  {!isScored ? (
+                    <span>Please write a score before submitting</span>
+                  ) : (
+                    <span></span>
+                  )}
+                  <button
+                    className=" inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-8 w-20 hover:bg-green-700"
+                    onClick={AlbumHeard}
+                  >
+                    Submit
+                  </button>
+                </div>
+              ) : (
+                <p className="hidden"></p>
+              )}
             </div>
 
             <div>
@@ -116,7 +148,7 @@ export default function SpotifyContent({
                     </div>
 
                     <div>
-                      <div className="w-96 h-96 flex flew-col justify-center overflow-auto ml-6">
+                      <div className="w-2/3 h-2/3 flex flew-col justify-center overflow-auto ml-6 bg-white rounded-lg">
                         {albums.length > 0 && (
                           <AlbumTracks
                             accessToken={token}
@@ -124,38 +156,6 @@ export default function SpotifyContent({
                           />
                         )}
                       </div>
-                      <button
-                        className="ml-24 inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-10 mt-4 ml-5 hover:bg-green-700"
-                        onClick={OpenBox}
-                      >
-                        Finished listening?
-                      </button>
-                      {isFinished ? (
-                        <div className="flex flex-col ml-16">
-                          <label>What score would you give the album?</label>
-
-                          <input
-                            name="score"
-                            type="number"
-                            max={10}
-                            min={1}
-                            onChange={handleScoreChange}
-                          />
-                          {!isScored ? (
-                            <span>Please write a score before submitting</span>
-                          ) : (
-                            <span></span>
-                          )}
-                          <button
-                            className="ml-20 inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-8 w-20 hover:bg-green-700"
-                            onClick={AlbumHeard}
-                          >
-                            Submit
-                          </button>
-                        </div>
-                      ) : (
-                        <p className="hidden"></p>
-                      )}
                     </div>
                   </div>
                 </>

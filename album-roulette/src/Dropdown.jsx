@@ -7,7 +7,7 @@ export default function Dropdown({ data, heading }) {
   };
 
   return (
-    <div className="border-solid border-2 rounded-lg mb-6 bg-purple-950 text-white">
+    <div className="border-solid border-2 rounded-lg mb-6 bg-white text-black">
       <button
         className="font-bold whitespace-nowraprelative "
         onClick={handleOpen}

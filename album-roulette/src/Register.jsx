@@ -134,8 +134,8 @@ export default function RegisterNew({
 
   return (
     <>
-      <div className="flex items-center justify-center  h-5/6">
-        <div className="flex flex-col items-center justify-center h-72 w-72 border-solid border-2 rounded-lg mt-10 bg-violet-500">
+      <div className="flex items-center justify-center  h-5/6 relative z-30">
+        <div className="flex flex-col items-center justify-center h-72 w-72 border-solid border-2 rounded-lg mt-10 bg-white ">
           <form className="flex flex-col">
             <label>Username:</label>
             <input
@@ -160,7 +160,7 @@ export default function RegisterNew({
               type="password"
               onChange={handleChange}
             />
-            <p className="text-white">{passwordMessage}</p>
+            <p className="text-black">{passwordMessage}</p>
 
             <label>Repeat password: </label>
             <input

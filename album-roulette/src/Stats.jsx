@@ -91,10 +91,10 @@ export default function Stats({ data, heard, Genres, globalData }) {
   ));
 
   return (
-    <div className="flex flex-row h-5/6 w-screen justify-center">
+    <div className="flex flex-row h-5/6 w-screen justify-center relative z-30">
       <div className="flex flex-col ml-5 w-1/4">
-        <h1 className="font-bold text-2xl mb-4 ">Your stats</h1>
-        <div className="border-solid border-2 rounded-lg mb-4 bg-purple-950 text-green-500 h-2/3">
+        <h1 className="font-bold text-2xl mb-4 mt-6">Your stats</h1>
+        <div className="border-solid border-2 rounded-lg mb-4 bg-white font-semibold text-black h-2/3">
           <ul>
             <li className="">Total albums heard: {numberHeard}</li>
             <li className="">Albums remaining: {numberRemaining}</li>
@@ -108,7 +108,9 @@ export default function Stats({ data, heard, Genres, globalData }) {
       </div>
 
       <div className="flex flex-col w-1/4 ml-10">
-        <h1 className="font-bold text-2xl mb-4">Global stats</h1>
+        <h1 className="font-bold text-2xl mb-4 text-zinc-800 mt-6">
+          Global stats
+        </h1>
         <Dropdown data={globalHeardList} heading={"Most heard albums"} />
         <Dropdown data={globalScoredList} heading={"Most popular albums"} />
       </div>

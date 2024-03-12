@@ -3,6 +3,7 @@ import RegisterNew from "./Register";
 import axios from "axios";
 import { createHash } from "crypto";
 import { useNavigate } from "react-router-dom";
+import Background from "./Background";
 
 export default function Login({ setLoggedIn }) {
   const navigate = useNavigate();
@@ -53,17 +54,17 @@ export default function Login({ setLoggedIn }) {
   return (
     <>
       {!NewUser ? (
-        <div className="flex items-center justify-center h-5/6">
-          <div className="flex flex-col items-center justify-center h-72 w-72 border-solid border-2 rounded-lg mt-10 bg-violet-500 shadow-2xl">
+        <div className="flex items-center justify-center h-5/6 relative z-30">
+          <div className="flex flex-col items-center justify-center h-72 w-72  rounded-lg mt-10 bg-white shadow-2xl relative z-30">
             <form className="flex flex-col">
-              <label className="text-white">Username:</label>{" "}
+              <label className="text-black">Username:</label>{" "}
               <input
                 name="username"
                 type="text"
                 className=""
                 onChange={handleChange}
               />
-              <label className="text-white">Password:</label>
+              <label className="text-black">Password:</label>
               <input
                 name="password"
                 type="password"
@@ -71,7 +72,7 @@ export default function Login({ setLoggedIn }) {
                 onChange={handleChange}
               />
               {IsInvalid ? (
-                <p className="text-rose-900">Invalid Username or Password</p>
+                <p className="text-red-600">Invalid Username or Password</p>
               ) : (
                 <p></p>
               )}
