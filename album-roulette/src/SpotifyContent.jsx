@@ -1,6 +1,6 @@
 import Player from "./Player";
 import AlbumTracks from "./AlbumTracks";
-import Rating from "./Rating";
+
 import { useState } from "react";
 import axios from "axios";
 
@@ -16,7 +16,6 @@ export default function SpotifyContent({
   albums,
   token,
   userID,
-  GenreArray,
 }) {
   const [isFinished, setIsFinished] = useState(false);
   const [score, setScore] = useState();
@@ -46,33 +45,44 @@ export default function SpotifyContent({
         table: userID,
         score: score,
       });
+      axios.post(`http://localhost:5174/api/post/globalscore`, {
+        album: selectedAlbum.Title,
+        score: score,
+      });
+      axios.post(`http://localhost:5174/api/post/globalheard`, {
+        album: selectedAlbum.Title,
+        value: 1,
+      });
+      WrapperFunction();
       setIsFinished(false);
     }
   };
   return (
     <>
-      <div className="flex flex-row bg-black h-screen">
+      <div className="flex flex-row  h-5/6">
         {!token ? (
           <a
-            className="text-white ml-5"
+            className="ml-5"
             href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES.join(
               "%20"
             )}&response_type=${RESPONSE_TYPE}`}
           >
-            Log in with Spotify
+            <button className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700">
+              Log in with Spotify
+            </button>
           </a>
         ) : (
           <>
             <div className="flex-col flex w-1/4">
               <button
                 onClick={logout}
-                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1"
+                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
               >
                 Log out of Spotify
               </button>
               <button
                 onClick={WrapperFunction}
-                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48  ml-5"
+                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48  ml-5 hover:bg-green-700"
               >
                 Get random album
               </button>
@@ -80,12 +90,12 @@ export default function SpotifyContent({
 
             <div>
               <div className=" flex flex-col items-center">
-                <h3 className="text-xl font-extrabold text-white">
-                  Album from the "1001 Albums You Must Hear Before You Die"
+                <h3 className="text-xl font-extrabold">
+                  Album from the book "1001 Albums You Must Hear Before You Die"
                 </h3>
                 <ul>
-                  <li className="text-white">{`Artist: ${selectedAlbum?.Artist}`}</li>
-                  <li className="text-white">{`Album: ${selectedAlbum?.Title}`}</li>
+                  <li className="">{`Artist: ${selectedAlbum?.Artist}`}</li>
+                  <li className="">{`Album: ${selectedAlbum?.Title}`}</li>
                 </ul>
               </div>
               {albums[0] != undefined &&
@@ -115,17 +125,16 @@ export default function SpotifyContent({
                         )}
                       </div>
                       <button
-                        className="ml-20 inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-12 mt-4"
+                        className="ml-24 inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-10 mt-4 ml-5 hover:bg-green-700"
                         onClick={OpenBox}
                       >
                         Finished listening?
                       </button>
                       {isFinished ? (
-                        <div className="flex flex-col ml-16 text-white">
+                        <div className="flex flex-col ml-16">
                           <label>What score would you give the album?</label>
-                          {/*<Rating /> */}{" "}
+
                           <input
-                            className="text-black"
                             name="score"
                             type="number"
                             max={10}
@@ -138,7 +147,7 @@ export default function SpotifyContent({
                             <span></span>
                           )}
                           <button
-                            className="ml-20 inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-8 w-20"
+                            className="ml-20 inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-8 w-20 hover:bg-green-700"
                             onClick={AlbumHeard}
                           >
                             Submit

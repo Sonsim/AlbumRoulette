@@ -36,9 +36,9 @@ export default function AlbumTracks({ accessToken, albumID }) {
   return (
     <>
       {songs.length > 0 ? (
-        <ul className="text-white">{ShowTracks}</ul>
+        <ul className="">{ShowTracks}</ul>
       ) : (
-        <div className="text-white">Track data unvailable</div>
+        <div className="">Track data unvailable</div>
       )}
     </>
   );

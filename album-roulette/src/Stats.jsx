@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Dropdown from "./Dropdown";
 
-export default function Stats({ data, heard, Genres }) {
+export default function Stats({ data, heard, Genres, globalData }) {
   const scored = [];
   const genreCount = [];
   const [numberHeard, setNumberHeard] = useState(0);
   const [numberRemaining, setNumberRemaing] = useState(0);
-
+  const globalHeard = [];
+  const globalScore = [];
   useEffect(() => {
     let count = 0;
     data.map((album) => {
@@ -35,8 +36,49 @@ export default function Stats({ data, heard, Genres }) {
       }
     });
   };
+  const GetGlobalHeard = () => {
+    globalData.map((album) => {
+      if (album.Is_Heard > 0) {
+        globalHeard.push(album);
+      }
+    });
+  };
+  const GetAvrageScore = () => {
+    globalData.forEach((album) => {
+      if (album.Score > 0) {
+        globalScore.push(album);
+      }
+    });
+  };
+  const CalculateAvrage = () => {
+    globalScore.forEach((album) => {
+      if (album.AvrageScore == null) {
+        album.AvrageScore = album.Score / album.Is_Heard;
+      }
+    });
+  };
+
+  GetAvrageScore();
+  GetGlobalHeard();
   GetScrored();
   GetCount();
+  CalculateAvrage();
+  const mostHeard = globalHeard.sort((a, b) =>
+    a.Is_Heard < b.Is_Heard ? 1 : -1
+  );
+  const scoreSorted = globalScore.sort((a, b) => {
+    a.Score < b.Score ? 1 : -1;
+  });
+  const globalScoredList = globalScore.map((album) => (
+    <li key={album.Title}>
+      Title: {album.Title} Avrage score: {album.AvrageScore}
+    </li>
+  ));
+  const globalHeardList = globalHeard.map((album) => (
+    <li key={album.ID}>
+      Album: {album.Title} Times Heard: {album.Is_Heard}
+    </li>
+  ));
   const GenreList = genreCount.map((genre) => (
     <li key={genre.genre}>
       {genre.genre} Albums Heard: {genre.counter}
@@ -47,14 +89,15 @@ export default function Stats({ data, heard, Genres }) {
       Album: {score.Title} Score: {score.Score}
     </li>
   ));
+
   return (
-    <div className="flex flex-row bg-black h-dvh">
-      <div className="flex flex-col ml-5 w-2/4">
-        <h1 className="font-bold text-2xl text-white">Your stats</h1>
-        <div className="w-1/3 text-white">
+    <div className="flex flex-row h-5/6 w-screen justify-center">
+      <div className="flex flex-col ml-5 w-1/4">
+        <h1 className="font-bold text-2xl mb-4 ">Your stats</h1>
+        <div className="border-solid border-2 rounded-lg mb-4 bg-purple-950 text-green-500 h-2/3">
           <ul>
-            <li>Total albums heard: {numberHeard}</li>
-            <li>Albums remaining: {numberRemaining}</li>
+            <li className="">Total albums heard: {numberHeard}</li>
+            <li className="">Albums remaining: {numberRemaining}</li>
           </ul>
         </div>
         <Dropdown
@@ -63,14 +106,11 @@ export default function Stats({ data, heard, Genres }) {
         />
         <Dropdown data={scoredList} heading={"Score of each album"} />
       </div>
-      <div>
-        <div className="flex flex-col text-white">
-          <h1 className="font-bold text-2xl">Global stats</h1>
-          <ul>
-            Most Heard:
-            <li></li>
-          </ul>
-        </div>
+
+      <div className="flex flex-col w-1/4 ml-10">
+        <h1 className="font-bold text-2xl mb-4">Global stats</h1>
+        <Dropdown data={globalHeardList} heading={"Most heard albums"} />
+        <Dropdown data={globalScoredList} heading={"Most popular albums"} />
       </div>
     </div>
   );

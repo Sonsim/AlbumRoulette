@@ -53,35 +53,50 @@ export default function Login({ setLoggedIn }) {
   return (
     <>
       {!NewUser ? (
-        <div className="flex items-center justify-center bg-black text-white h-screen ">
-          <div className="flex flex-col items-center justify-center h-72 w-72 border-solid border-2 mb-60">
+        <div className="flex items-center justify-center h-5/6">
+          <div className="flex flex-col items-center justify-center h-72 w-72 border-solid border-2 rounded-lg mt-10 bg-violet-500 shadow-2xl">
             <form className="flex flex-col">
-              <label>Username:</label>{" "}
+              <label className="text-white">Username:</label>{" "}
               <input
                 name="username"
                 type="text"
-                className="text-black"
+                className=""
                 onChange={handleChange}
               />
-              <label>Password:</label>
+              <label className="text-white">Password:</label>
               <input
                 name="password"
                 type="password"
-                className="text-black"
+                className=""
                 onChange={handleChange}
               />
               {IsInvalid ? (
-                <p className="text-red-600">Invalid Username or Password</p>
+                <p className="text-rose-900">Invalid Username or Password</p>
               ) : (
                 <p></p>
               )}
-              <button onClick={HandleRegister}>New User?</button>
-              <button onClick={Login}>Submit</button>
+              <button
+                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
+                onClick={HandleRegister}
+              >
+                New User?
+              </button>
+              <button
+                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
+                onClick={Login}
+              >
+                Submit
+              </button>
             </form>
           </div>
         </div>
       ) : (
-        <RegisterNew hashFunction={hashpassword} setLogg={setLoggedIn} />
+        <RegisterNew
+          hashFunction={hashpassword}
+          setLogg={setLoggedIn}
+          newuser={NewUser}
+          setnewuser={setNewUser}
+        />
       )}
     </>
   );

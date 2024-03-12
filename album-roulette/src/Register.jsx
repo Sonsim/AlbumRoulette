@@ -3,7 +3,12 @@ import axios from "axios";
 import { createHash } from "crypto";
 import { useNavigate } from "react-router-dom";
 
-export default function RegisterNew({ hashFunction, setLogg }) {
+export default function RegisterNew({
+  hashFunction,
+  setLogg,
+  newuser,
+  setnewuser,
+}) {
   const navigate = useNavigate();
   // Boolean to track if username is available or not
   const [IsAvailable, setIsAvailable] = useState(true);
@@ -129,14 +134,14 @@ export default function RegisterNew({ hashFunction, setLogg }) {
 
   return (
     <>
-      <div className="flex items-center justify-center bg-black h-dvh">
-        <div className="flex flex-col items-center justify-center h-72 w-72 border-solid border-2 mb-60">
+      <div className="flex items-center justify-center  h-5/6">
+        <div className="flex flex-col items-center justify-center h-72 w-72 border-solid border-2 rounded-lg mt-10 bg-violet-500">
           <form className="flex flex-col">
             <label>Username:</label>
             <input
               type="username"
               name="username"
-              className="border-solid border-2 text-black"
+              className="border-solid border-2 "
               onChange={handleChange}
             />
 
@@ -168,10 +173,23 @@ export default function RegisterNew({ hashFunction, setLogg }) {
             {userState.password == userState.confirmPassword ? (
               <></>
             ) : (
-              <p className="text-red-600">Password do not match!</p>
+              <p className="text-rose-700 font-semibold">
+                Password do not match!
+              </p>
             )}
 
-            <button onClick={wrapper}>Register</button>
+            <button
+              className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
+              onClick={wrapper}
+            >
+              Register
+            </button>
+            <button
+              onClick={setnewuser}
+              className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
+            >
+              Back
+            </button>
           </form>
         </div>
       </div>

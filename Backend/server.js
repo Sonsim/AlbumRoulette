@@ -32,6 +32,52 @@ app.get("/api/get/albums/:tablename", (req, res) => {
   });
 });
 
+app.get("/api/get/globalalbums", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) console.log(err);
+    const request = new sql.Request();
+    request.query("Select * from GlobalAlbum", (err, result) => {
+      if (err) console.log(err);
+      res.send(result);
+    });
+  });
+});
+app.post("/api/post/globalheard", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) console.log(err);
+    const request = new sql.Request();
+    const album = req.body.album;
+    const value = req.body.value;
+    request.query(
+      `update GlobalAlbum Set Is_Heard=Is_Heard + '${value}' where Title='${album}'`,
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        res.send(result);
+      }
+    );
+  });
+});
+
+app.post("/api/post/globalscore", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) console.log(err);
+    const request = new sql.Request();
+    const album = req.body.album;
+    const score = req.body.score;
+    request.query(
+      `Update GlobalAlbum SET Score=Score + '${score}' WHERE Title='${album}'`,
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        res.send(result);
+      }
+    );
+  });
+});
+
 app.post("/api/post/album_heard", (req, res) => {
   sql.connect(config, (err) => {
     if (err) console.log(err);
