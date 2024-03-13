@@ -1,6 +1,6 @@
 import Player from "./Player";
 import AlbumTracks from "./AlbumTracks";
-import Background from "./Background";
+import Background from "../Background";
 import { useState } from "react";
 import axios from "axios";
 
@@ -59,15 +59,15 @@ export default function SpotifyContent({
   };
   return (
     <>
-      <div className="flex flex-row  h-5/6 relative z-30">
+      <div className="flex flex-row sm:flex-col md:flex-row lg:flex-row  h-dvh w-dvh object-fit relative z-30">
         {!token ? (
           <a
-            className="ml-5"
+            className="ml-5 mt-6"
             href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES.join(
               "%20"
             )}&response_type=${RESPONSE_TYPE}`}
           >
-            <button className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700">
+            <button className="bg-green-500 rounded-full text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 sm:w-20 ml-5 my-1 hover:bg-green-700">
               Log in with Spotify
             </button>
           </a>
@@ -120,20 +120,11 @@ export default function SpotifyContent({
               )}
             </div>
 
-            <div>
-              <div className=" flex flex-col items-center">
-                <h3 className="text-xl font-extrabold">
-                  Album from the book "1001 Albums You Must Hear Before You Die"
-                </h3>
-                <ul>
-                  <li className="">{`Artist: ${selectedAlbum?.Artist}`}</li>
-                  <li className="">{`Album: ${selectedAlbum?.Title}`}</li>
-                </ul>
-              </div>
+            <div className="mt-6">
               {albums[0] != undefined &&
               albums[0].artists[0].name == selectedAlbum.Artist ? (
                 <>
-                  <div className="flex flex-row">
+                  <div className="flex flex-row sm:flex-col md:flex-row lg:flex-row w-auto sm:w-2/4 md:w-6/12 lg:w-11/12">
                     <div className="flex flex-col ">
                       {albums.length > 0 && (
                         <img
@@ -148,7 +139,7 @@ export default function SpotifyContent({
                     </div>
 
                     <div>
-                      <div className="w-2/3 h-2/3 flex flew-col justify-center overflow-auto ml-6 bg-white rounded-lg">
+                      <div className="w-auto  h-2/3 flex flew-col justify-center overflow-auto ml-6 bg-green-500  rounded-lg">
                         {albums.length > 0 && (
                           <AlbumTracks
                             accessToken={token}

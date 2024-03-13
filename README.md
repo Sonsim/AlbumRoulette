@@ -1,20 +1,23 @@
 # AlbumRoulette
 
-Based on the albums in the book "1001 Albums You Must Hear Before You Die", this website will allow the user to explore new music by getting a random album from the book and let the user play the record on Spotify. 
+Based on the albums in the book "1001 Albums You Must Hear Before You Die", this website will allow the user to explore new music by getting a random album from the book and let the user play the record on Spotify.
 
 # Table of content
+
 1. [Tech](#Tech)
 2. [Acknowledgements](#Acknowledgements)
 3. [Lessons learned](#Lessons-learned)
 4. [License](#License)
 
 # Tech
- - Vite 5.08
- - TailwindCSS 3.4.1
- - NodeJS
- - Axios 1.6.7
- - Microsoft SQL Server Managment Studio
- - VSCode
+
+- Vite 5.08
+- TailwindCSS 3.4.1
+- NodeJS
+- Axios 1.6.7
+- Microsoft SQL Server Managment Studio
+- VSCode
+
 # Acknowledgements
 
 # Lessons learned
@@ -42,5 +45,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-

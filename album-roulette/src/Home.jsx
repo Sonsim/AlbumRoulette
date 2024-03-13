@@ -1,4 +1,4 @@
-import SpotifyLogin from "./SpotifyLogin";
+import SpotifyLogin from "./SpotifyComponents/SpotifyLogin";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Home({

@@ -31,7 +31,11 @@ export default function AlbumTracks({ accessToken, albumID }) {
       GetTracks();
     }
   }, [songs]);
-  const ShowTracks = songs.map((song) => <li key={song.id}>{song.name} </li>);
+  const ShowTracks = songs.map((song) => (
+    <li key={song.id} className="list-disc">
+      {song.name}{" "}
+    </li>
+  ));
 
   return (
     <>

@@ -4,11 +4,12 @@ import Dropdown from "./Dropdown";
 
 export default function Stats({ data, heard, Genres, globalData }) {
   const scored = [];
-  const genreCount = [];
+  const genreCount = [["Genre", "Count"]];
   const [numberHeard, setNumberHeard] = useState(0);
   const [numberRemaining, setNumberRemaing] = useState(0);
-  const globalHeard = [];
+  const globalHeard = [["Album", "Times Heard"]];
   const globalScore = [];
+
   useEffect(() => {
     let count = 0;
     data.map((album) => {
@@ -22,10 +23,11 @@ export default function Stats({ data, heard, Genres, globalData }) {
     let count = data.length - numberHeard;
     setNumberRemaing(count);
   });
+
   const GetCount = () => {
     Genres.map((genre) => {
       if (genre.counter > 0) {
-        genreCount.push(genre);
+        genreCount.push([genre.genre, genre.counter]);
       }
     });
   };
@@ -39,7 +41,7 @@ export default function Stats({ data, heard, Genres, globalData }) {
   const GetGlobalHeard = () => {
     globalData.map((album) => {
       if (album.Is_Heard > 0) {
-        globalHeard.push(album);
+        globalHeard.push([album.Title, album.Is_Heard]);
       }
     });
   };
@@ -59,10 +61,10 @@ export default function Stats({ data, heard, Genres, globalData }) {
   };
 
   GetAvrageScore();
-  GetGlobalHeard();
   GetScrored();
   GetCount();
   CalculateAvrage();
+  GetGlobalHeard();
   const mostHeard = globalHeard.sort((a, b) =>
     a.Is_Heard < b.Is_Heard ? 1 : -1
   );
@@ -94,25 +96,40 @@ export default function Stats({ data, heard, Genres, globalData }) {
     <div className="flex flex-row h-5/6 w-screen justify-center relative z-30">
       <div className="flex flex-col ml-5 w-1/4">
         <h1 className="font-bold text-2xl mb-4 mt-6">Your stats</h1>
-        <div className="border-solid border-2 rounded-lg mb-4 bg-white font-semibold text-black h-2/3">
+        <div className="border-solid border-2 rounded-lg mb-4 bg-green-500  font-semibold text-black h-2/3">
           <ul>
             <li className="">Total albums heard: {numberHeard}</li>
             <li className="">Albums remaining: {numberRemaining}</li>
           </ul>
         </div>
         <Dropdown
-          data={GenreList}
+          data={genreCount}
           heading={"Number of albums heard in each genre"}
+          type={"Bar"}
+          chart={true}
         />
-        <Dropdown data={scoredList} heading={"Score of each album"} />
+        <Dropdown
+          data={scoredList}
+          heading={"Score of each album"}
+          type={"PieChart"}
+        />
       </div>
 
       <div className="flex flex-col w-1/4 ml-10">
         <h1 className="font-bold text-2xl mb-4 text-zinc-800 mt-6">
           Global stats
         </h1>
-        <Dropdown data={globalHeardList} heading={"Most heard albums"} />
-        <Dropdown data={globalScoredList} heading={"Most popular albums"} />
+        <Dropdown
+          data={globalHeard.reverse()}
+          heading={"Most heard albums"}
+          chart={true}
+          type={"PieChart"}
+        />
+        <Dropdown
+          data={globalScoredList}
+          heading={"Most popular albums"}
+          chart={false}
+        />
       </div>
     </div>
   );
