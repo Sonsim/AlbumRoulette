@@ -135,15 +135,10 @@ export default function RegisterNew({
   return (
     <>
       <div className="flex items-center justify-center  h-5/6 relative z-30">
-        <div className="flex flex-col items-center justify-center h-72 w-72 border-solid border-2 rounded-lg mt-10 bg-white ">
+        <div className="flex flex-col items-center justify-center h-60 w-60 md:h-72 md:w-72 border-solid border-2 rounded-lg mt-10 bg-white ">
           <form className="flex flex-col">
             <label>Username:</label>
-            <input
-              type="username"
-              name="username"
-              className="border-solid border-2 "
-              onChange={handleChange}
-            />
+            <input type="username" name="username" onChange={handleChange} />
 
             {IsAvailable ? (
               <></>
@@ -154,18 +149,12 @@ export default function RegisterNew({
             )}
 
             <label>Password:</label>
-            <input
-              name="password"
-              className="border-solid border-2"
-              type="password"
-              onChange={handleChange}
-            />
+            <input name="password" type="password" onChange={handleChange} />
             <p className="text-black">{passwordMessage}</p>
 
             <label>Repeat password: </label>
             <input
               name="confirmPassword"
-              className="border-solid border-2"
               type="password"
               onChange={handleChange}
             />

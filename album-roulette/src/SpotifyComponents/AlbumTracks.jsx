@@ -32,7 +32,7 @@ export default function AlbumTracks({ accessToken, albumID }) {
     }
   }, [songs]);
   const ShowTracks = songs.map((song) => (
-    <li key={song.id} className="list-disc">
+    <li key={song.id} className="list-none">
       {song.name}{" "}
     </li>
   ));
@@ -40,9 +40,9 @@ export default function AlbumTracks({ accessToken, albumID }) {
   return (
     <>
       {songs.length > 0 ? (
-        <ul className="">{ShowTracks}</ul>
+        <ul>{ShowTracks}</ul>
       ) : (
-        <div className="">Track data unvailable</div>
+        <div>Track data unvailable</div>
       )}
     </>
   );

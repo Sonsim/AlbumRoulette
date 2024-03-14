@@ -70,15 +70,18 @@ function App() {
     <>
       <BrowserRouter>
         {!isError ? (
-          <Header
-            name={UserLoggedIn}
-            data={SQLData}
-            setUserLoggedIn={setUserLoggedIn}
-          />
+          <>
+            <Background />
+            <Header
+              name={UserLoggedIn}
+              data={SQLData}
+              setUserLoggedIn={setUserLoggedIn}
+            />
+          </>
         ) : (
           <div></div>
         )}
-        <Background />
+
         <Routes>
           <Route
             path="/home"

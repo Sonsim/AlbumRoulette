@@ -59,7 +59,7 @@ export default function SpotifyContent({
   };
   return (
     <>
-      <div className="flex flex-row sm:flex-col md:flex-row lg:flex-row  h-dvh w-dvh object-fit relative z-30">
+      <div className="flex flex-col  justify-center  md:justify-normal overflow-hidden sm:flex-col md:flex-row lg:flex-row  object-fit relative z-30 ">
         {!token ? (
           <a
             className="ml-5 mt-6"
@@ -67,16 +67,16 @@ export default function SpotifyContent({
               "%20"
             )}&response_type=${RESPONSE_TYPE}`}
           >
-            <button className="bg-green-500 rounded-full text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 sm:w-20 ml-5 my-1 hover:bg-green-700">
+            <button className="bg-green-500 rounded-full text-sm font-semibold text-gray-700 mr-2 mb-2 w-32 md:w-48 ml-5 my-1 hover:bg-green-700">
               Log in with Spotify
             </button>
           </a>
         ) : (
           <>
-            <div className="flex-col flex w-1/4 mt-6">
+            <div className="flex-col flex w-1/6 h-1/6 mt-6 ml-32">
               <button
                 onClick={logout}
-                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
+                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm  font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
               >
                 Log out of Spotify
               </button>
@@ -93,7 +93,7 @@ export default function SpotifyContent({
                 Finished listening?
               </button>
               {isFinished ? (
-                <div className="flex flex-col ml-4 bg-white rounded-lg w-11/12 items-center">
+                <div className="flex flex-col ml-4 bg-white rounded-lg w-80 ml-6 items-center">
                   <label>What score would you give the album?</label>
 
                   <input
@@ -109,7 +109,7 @@ export default function SpotifyContent({
                     <span></span>
                   )}
                   <button
-                    className=" inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-8 w-20 hover:bg-green-700"
+                    className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-8 w-20 hover:bg-green-700"
                     onClick={AlbumHeard}
                   >
                     Submit
@@ -120,15 +120,15 @@ export default function SpotifyContent({
               )}
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 flex flex-col">
               {albums[0] != undefined &&
               albums[0].artists[0].name == selectedAlbum.Artist ? (
                 <>
-                  <div className="flex flex-row sm:flex-col md:flex-row lg:flex-row w-auto sm:w-2/4 md:w-6/12 lg:w-11/12">
+                  <div className="flex flex-row md:mt-0 sm:flex-col md:flex-row lg:flex-row w-auto">
                     <div className="flex flex-col ">
                       {albums.length > 0 && (
                         <img
-                          className="object-scale-down"
+                          className=" ml-20 w-2/3 md:w-full md:ml-26"
                           src={albums[0].images[0].url}
                         />
                       )}
@@ -139,7 +139,8 @@ export default function SpotifyContent({
                     </div>
 
                     <div>
-                      <div className="w-auto  h-2/3 flex flew-col justify-center overflow-auto ml-6 bg-green-500  rounded-lg">
+                      <div className="hidden md:block md:w-80 h-96 flex flew-col overflow-auto ml-40 bg-green-500 content-center rounded-lg">
+                        <h4 className="font-bold">Track list</h4>
                         {albums.length > 0 && (
                           <AlbumTracks
                             accessToken={token}

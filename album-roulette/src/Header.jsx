@@ -1,8 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import vinyl from "./assets/vinyl.png";
 import "./App.css";
-import Dropdown from "./Dropdown";
 import { useNavigate } from "react-router-dom";
 
 export default function Header({ name, setUserLoggedIn }) {
@@ -23,7 +21,7 @@ export default function Header({ name, setUserLoggedIn }) {
     setActiveButton(1);
   };
   return (
-    <nav className="bg-zinc-900 h-5/6">
+    <nav className="relative z-30 bg-zinc-900 h-5/6 ">
       {name != null ? (
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <h1 className="self-center text-s text-white sm:text-s, md:text-3xl lg:text-5xl">

@@ -54,8 +54,8 @@ export default function Login({ setLoggedIn }) {
   return (
     <>
       {!NewUser ? (
-        <div className="flex items-center justify-center h-5/6 relative z-30">
-          <div className="flex flex-col items-center justify-center h-72 w-72  rounded-lg mt-10 bg-white shadow-2xl relative z-30">
+        <div className="flex items-center justify-center relative z-30">
+          <div className="flex flex-col items-center justify-center h-60 w-60 md:h-72 md:w-72  rounded-lg mt-10 bg-white relative z-30">
             <form className="flex flex-col">
               <label className="text-black">Username:</label>{" "}
               <input
@@ -77,13 +77,13 @@ export default function Login({ setLoggedIn }) {
                 <p></p>
               )}
               <button
-                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
+                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2  ml-5 my-1 hover:bg-green-700"
                 onClick={HandleRegister}
               >
                 New User?
               </button>
               <button
-                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
+                className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ml-5 my-1 hover:bg-green-700"
                 onClick={Login}
               >
                 Submit

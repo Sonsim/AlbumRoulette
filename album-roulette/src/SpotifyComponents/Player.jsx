@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
 
 export default function Player({ accesstoken, albumUri }) {
   return (
-    <>
+    <div className="ml-20 w-2/3 md:w-full md:ml-26">
       <SpotifyPlayer
         token={accesstoken}
         showSaveIcon
@@ -20,6 +19,6 @@ export default function Player({ accesstoken, albumUri }) {
         }}
         uris={albumUri ? [albumUri] : []}
       />
-    </>
+    </div>
   );
 }
