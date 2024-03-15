@@ -22,7 +22,7 @@ Based on the albums in the book "1001 Albums You Must Hear Before You Die", this
 - VSCode
 
 # Acknowledgements
-The web app uses the following libraries and API's:
+
   -Spotify Web Api - https://developer.spotify.com/documentation/web-api
   -React Spotify Web Playback - https://www.npmjs.com/package/@chrisuh10/react-spotify-web-playback
   -React Google Chart - https://www.npmjs.com/package/react-google-charts?activeTab=readme
