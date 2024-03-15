@@ -2,6 +2,9 @@
 
 Based on the albums in the book "1001 Albums You Must Hear Before You Die", this website will allow the user to explore new music by getting a random album from the book and let the user play the record on Spotify.
 
+![Screenshot2](https://github.com/Sonsim/AlbumRoulette/assets/141270918/bee5d804-57bd-4496-a536-a9eaeabd3690)
+
+
 # Table of content
 
 1. [Tech](#Tech)
@@ -19,9 +22,13 @@ Based on the albums in the book "1001 Albums You Must Hear Before You Die", this
 - VSCode
 
 # Acknowledgements
-
+The web app uses the following libraries and API's:
+  -Spotify Web Api - https://developer.spotify.com/documentation/web-api
+  -React Spotify Web Playback - https://www.npmjs.com/package/@chrisuh10/react-spotify-web-playback
+  -React Google Chart - https://www.npmjs.com/package/react-google-charts?activeTab=readme
+  
 # Lessons learned
-
+Learned a lot about Nodejs, React/Vite, Microsoft SQL Server, and Tailwind CSS.
 # License
 
 MIT License
