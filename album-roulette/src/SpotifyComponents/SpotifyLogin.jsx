@@ -80,6 +80,7 @@ export default function SpotifyLogin({ AlbumData, GenreArray }) {
         AlbumArray.push(album);
       }
     });
+    console.log(albums);
     // Gets Random album from AlbumArray
     const rndAlbum = AlbumArray[Math.floor(Math.random() * AlbumArray.length)];
     // Sets the selectedAlbum variable to the same as the random album

@@ -28,7 +28,7 @@ export default function Dropdown({ data, heading, chart, type }) {
         <h1 className="text-black hover:text-green-700">{heading}</h1>
       </button>
       {open ? (
-        <div className="overflow-auto">
+        <div className="overflow-auto h-40">
           {isChart ? (
             <Chart chartType={type} data={data} options={option} />
           ) : (

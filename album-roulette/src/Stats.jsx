@@ -9,7 +9,6 @@ export default function Stats({ data, heard, Genres, globalData }) {
   const [numberRemaining, setNumberRemaing] = useState(0);
   const globalHeard = [["Album", "Times Heard"]];
   const globalScore = [];
-
   useEffect(() => {
     let count = 0;
     data.map((album) => {
@@ -33,7 +32,7 @@ export default function Stats({ data, heard, Genres, globalData }) {
   };
   const GetScrored = () => {
     heard.map((album) => {
-      if (album.Score != null) {
+      if (album.Score != null || album.Score > 0) {
         scored.push(album);
       }
     });
@@ -76,16 +75,7 @@ export default function Stats({ data, heard, Genres, globalData }) {
       Title: {album.Title} Avrage score: {album.AvrageScore}
     </li>
   ));
-  const globalHeardList = globalHeard.map((album) => (
-    <li key={album.ID}>
-      Album: {album.Title} Times Heard: {album.Is_Heard}
-    </li>
-  ));
-  const GenreList = genreCount.map((genre) => (
-    <li key={genre.genre}>
-      {genre.genre} Albums Heard: {genre.counter}
-    </li>
-  ));
+
   const scoredList = scored.map((score) => (
     <li key={score.Title}>
       Album: {score.Title} Score: {score.Score}

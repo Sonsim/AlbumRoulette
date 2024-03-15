@@ -14,15 +14,7 @@ function App() {
   const [UserLoggedIn, setUserLoggedIn] = useState();
   let isError = false;
   const HeardAlbums = [];
-  const AllGenres = [
-    { genre: "Metal", counter: 0 },
-    { genre: "Pop Rock", counter: 0 },
-    { genre: "R&B", counter: 0 },
-    { genre: "Folk", counter: 0 },
-    { genre: "Hip Hop", counter: 0 },
-    { genre: "Blues", counter: 0 },
-    { genre: "Rock and Roll", counter: 0 },
-  ];
+  const AllGenres = [];
   const [GlobalData, setGlobalData] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:5174/api/get/globalalbums").then((data) => {
@@ -30,6 +22,14 @@ function App() {
     });
   }, []);
 
+  const fillGenre = () => {
+    GlobalData.map((album) => {
+      if (album.Is_Heard > 0 && !AllGenres.includes(album.Genre)) {
+        AllGenres.push({ genre: album.Genre, counter: 0 });
+      }
+    });
+  };
+  fillGenre();
   useEffect(() => {
     let userID = localStorage.getItem("userID");
     let name = "User" + userID;
@@ -39,6 +39,7 @@ function App() {
       });
     }
   }, []);
+  console.log(AllGenres);
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {

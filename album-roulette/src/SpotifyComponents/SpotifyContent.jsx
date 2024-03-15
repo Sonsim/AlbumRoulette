@@ -73,7 +73,7 @@ export default function SpotifyContent({
           </a>
         ) : (
           <>
-            <div className="flex-col flex w-1/6 h-1/6 mt-6 ml-32">
+            <div className="flex-col flex w-1/6 h-1/6 mt-6 ml-10">
               <button
                 onClick={logout}
                 className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm  font-semibold text-gray-700 mr-2 mb-2 w-48 ml-5 my-1 hover:bg-green-700"
@@ -93,7 +93,7 @@ export default function SpotifyContent({
                 Finished listening?
               </button>
               {isFinished ? (
-                <div className="flex flex-col ml-4 bg-white rounded-lg w-80 ml-6 items-center">
+                <div className="flex flex-col ml-4 bg-white rounded-lg text-xs w-52 md:text-base md:w-80 items-center">
                   <label>What score would you give the album?</label>
 
                   <input
@@ -109,7 +109,7 @@ export default function SpotifyContent({
                     <span></span>
                   )}
                   <button
-                    className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-8 w-20 hover:bg-green-700"
+                    className="inline-block bg-green-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 h-8 w-18 h-18 text-sm hover:bg-green-700"
                     onClick={AlbumHeard}
                   >
                     Submit
@@ -122,13 +122,14 @@ export default function SpotifyContent({
 
             <div className="mt-6 flex flex-col">
               {albums[0] != undefined &&
-              albums[0].artists[0].name == selectedAlbum.Artist ? (
+              albums[0].artists[0].name.toLowerCase() ==
+                selectedAlbum.Artist.toLowerCase() ? (
                 <>
                   <div className="flex flex-row md:mt-0 sm:flex-col md:flex-row lg:flex-row w-auto">
                     <div className="flex flex-col ">
                       {albums.length > 0 && (
                         <img
-                          className=" ml-20 w-2/3 md:w-full md:ml-26"
+                          className=" ml-14 w-2/3 md:w-full md:ml-28"
                           src={albums[0].images[0].url}
                         />
                       )}
