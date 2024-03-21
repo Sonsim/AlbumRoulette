@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { createHash } from "crypto";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function RegisterNew({
   hashFunction,
@@ -66,10 +67,15 @@ export default function RegisterNew({
       );
       const userID = response.data.recordset[0].UserID;
 
+      // Get JWT Token
+
+      const getJwt = await axios.get(`http://localhost:5174/api/get/jwt`, {
+        username: userState.username,
+      });
+
+      Cookies.set("jwtToken", getJwt.data.user.jsonWebToken);
       // Create table
       const tableName = "User" + userID;
-      console.log(tableName);
-      console.log(userID);
       const createTableResponse = await axios.post(
         `http://localhost:5174/api/post/createtable`,
         {
@@ -124,7 +130,6 @@ export default function RegisterNew({
     var passwordCheck = await CheckPassword();
     var passwordRegex = await validatePassword();
     if (usernameCheck && passwordCheck && passwordRegex) {
-      console.log("Kjør registrering");
       register();
       navigate("/home");
     } else {

@@ -2,11 +2,19 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Dropdown from "./Dropdown";
 
-export default function Stats({ data, heard, Genres, globalData }) {
+export default function Stats({
+  data,
+  heard,
+  Genres,
+  globalData,
+  numberHeard,
+  setNumberHeard,
+  numberRemaining,
+  setNumberRemaing,
+}) {
   const scored = [];
   const genreCount = [["Genre", "Count"]];
-  const [numberHeard, setNumberHeard] = useState(0);
-  const [numberRemaining, setNumberRemaing] = useState(0);
+
   const globalHeard = [["Album", "Times Heard"]];
   const globalScore = [];
   useEffect(() => {
@@ -17,11 +25,11 @@ export default function Stats({ data, heard, Genres, globalData }) {
       }
     });
     setNumberHeard(count);
-  });
+  }, []);
   useEffect(() => {
     let count = data.length - numberHeard;
     setNumberRemaing(count);
-  });
+  }, []);
 
   const GetCount = () => {
     Genres.map((genre) => {

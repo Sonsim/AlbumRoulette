@@ -3,7 +3,8 @@ const sql = require("mssql/msnodesqlv8");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
-
+const jwt = require("jsonwebtoken");
+const jwtKey = process.env.VITE_JWT_SECRET;
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -19,7 +20,32 @@ const config = {
     trustedConnection: true,
   },
 };
+app.get("/api/get/jwt", (req, res) => {
+  sql.connect(config, (err) => {
+    if (err) console.log(err);
 
+    const request = new sql.Request();
+    const username = req.body.username;
+    request.query(
+      `SELECT Username FROM Users Where Username='${username}'`,
+      (err, result) => {
+        if (err) console.log(err);
+        else if (result.recordset != undefined) {
+          const jwtToken = jwt.sign(result, jwtKey);
+          let userData = {
+            user: {
+              userName: result.recordset.Username,
+              jsonWebToken: jwtToken,
+            },
+          };
+          res.send(userData);
+        } else {
+          res.send(result);
+        }
+      }
+    );
+  });
+});
 app.get("/api/get/albums/:tablename", (req, res) => {
   sql.connect(config, (err) => {
     if (err) console.log(err);
@@ -153,8 +179,24 @@ app.post("/api/get/user-login", (req, res) => {
       (err, result) => {
         if (err) {
           console.log(err);
+        } else if (result.recordset[0]) {
+          let data = {
+            user: {
+              result,
+            },
+          };
+          const jwtToken = jwt.sign(result, jwtKey);
+          let userData = {
+            user: {
+              userID: result.recordset[0].UserId,
+              userName: result.recordset[0].Username,
+              jsonWebToken: jwtToken,
+            },
+          };
+          res.send(userData);
+        } else {
+          res.send(result);
         }
-        res.send(result);
       }
     );
   });
@@ -179,11 +221,9 @@ app.post("/api/post/register", (req, res) => {
 
     request.query(sqlinsert, (err, result) => {
       if (err) {
-        console.error("Error executing query:", err);
         res.status(500).send("Error inserting data");
         return;
       }
-      console.log("Inserted data successfully:", result);
       res.send(result);
     });
   });

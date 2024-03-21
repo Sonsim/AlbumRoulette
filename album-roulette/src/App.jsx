@@ -14,6 +14,8 @@ function App() {
   const [UserLoggedIn, setUserLoggedIn] = useState();
   let isError = false;
   const HeardAlbums = [];
+  const [numberHeard, setNumberHeard] = useState(0);
+  const [numberRemaining, setNumberRemaing] = useState(0);
   const AllGenres = [];
   const [GlobalData, setGlobalData] = useState([]);
   useEffect(() => {
@@ -39,7 +41,7 @@ function App() {
       });
     }
   }, []);
-  console.log(AllGenres);
+
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
@@ -92,6 +94,10 @@ function App() {
                 user={UserLoggedIn}
                 GenreArray={HeardAlbums}
                 GlobalData={GlobalData}
+                numberHeard={numberHeard}
+                setNumberHeard={setNumberHeard}
+                numberRemaining={numberRemaining}
+                setNumberRemaining={setNumberRemaing}
               />
             }
           />
@@ -103,6 +109,10 @@ function App() {
             path="/stats"
             element={
               <Stats
+                numberHeard={numberHeard}
+                setNumberHeard={setNumberHeard}
+                numberRemaining={numberRemaining}
+                setNumberRemaing={setNumberRemaing}
                 data={SQLData}
                 heard={HeardAlbums}
                 Genres={AllGenres}

@@ -3,7 +3,14 @@ import SpotifyContent from "./SpotifyContent";
 import AlbumSearch from "./AlbumSearch";
 import axios from "axios";
 
-export default function SpotifyLogin({ AlbumData, GenreArray }) {
+export default function SpotifyLogin({
+  AlbumData,
+  GenreArray,
+  numberHeard,
+  setNumberRemaining,
+  setNumberHeard,
+  numberRemaining,
+}) {
   {
     /*Variables used to set the authentication url */
   }
@@ -80,6 +87,10 @@ export default function SpotifyLogin({ AlbumData, GenreArray }) {
         AlbumArray.push(album);
       }
     });
+    let newNumberHeard = numberHeard + 1;
+    setNumberHeard(newNumberHeard);
+    let newNumberRemaing = numberRemaining - 1;
+    setNumberRemaining(newNumberRemaing);
     console.log(albums);
     // Gets Random album from AlbumArray
     const rndAlbum = AlbumArray[Math.floor(Math.random() * AlbumArray.length)];
@@ -108,6 +119,10 @@ export default function SpotifyLogin({ AlbumData, GenreArray }) {
         logout={logout}
         userID={userID}
         GenreArray={GenreArray}
+        numberHeard={numberHeard}
+        setNumberRemaining={setNumberRemaining}
+        setNumberHeard={setNumberHeard}
+        numberRemaining={numberRemaining}
       />
     </>
   );

@@ -1,5 +1,7 @@
+import { useState } from "react";
 import SpotifyLogin from "./SpotifyComponents/SpotifyLogin";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function Home({
   AlbumData,
@@ -8,16 +10,24 @@ export default function Home({
   user,
   GenreArray,
   GlobalData,
+  numberHeard,
+  setNumberHeard,
+  numberRemaining,
+  setNumberRemaining,
 }) {
   return (
     <>
-      {user ? (
+      {Cookies.get("jwtToken") != undefined ? (
         <SpotifyLogin
           AlbumData={AlbumData}
           token={token}
           setToken={setToken}
           GenreArray={GenreArray}
           GlobalData={GlobalData}
+          numberHeard={numberHeard}
+          setNumberRemaining={setNumberRemaining}
+          setNumberHeard={setNumberHeard}
+          numberRemaining={numberRemaining}
         />
       ) : (
         <div className="flex items-center justify-center z-30 relative">

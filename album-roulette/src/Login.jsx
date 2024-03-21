@@ -3,7 +3,7 @@ import RegisterNew from "./Register";
 import axios from "axios";
 import { createHash } from "crypto";
 import { useNavigate } from "react-router-dom";
-import Background from "./Background";
+import Cookies from "js-cookie";
 
 export default function Login({ setLoggedIn }) {
   const navigate = useNavigate();
@@ -29,16 +29,14 @@ export default function Login({ setLoggedIn }) {
         pass: hashpassword(userInfo.password),
       })
       .then((response) => {
-        if (
-          response.data.recordset.length > 0 &&
-          response.data.recordset.length < 2
-        ) {
-          setLoggedIn(response.data.recordset[0].Username);
-          localStorage.setItem("user", response.data.recordset[0].Username);
-          localStorage.setItem("userID", response.data.recordset[0].UserId);
+        console.log(response);
+        if (response.data.user) {
+          Cookies.set("jwtToken", response.data.user.jsonWebToken);
+          setLoggedIn(response.data.user.userName);
+          localStorage.setItem("user", response.data.user.userName);
+          localStorage.setItem("userID", response.data.user.userID);
           navigate("/home");
         } else {
-          console.log("Får ingen token");
           setIsInvalid(true);
         }
       });

@@ -24,8 +24,7 @@ export default function AlbumSearch({
         },
       });
       // Sets Albums to the object found by searching Spotify
-      console.log(data.albums.items);
-      console.log(selectedAlbum);
+
       if (
         data.albums.items[0].release_date.includes(selectedAlbum.Release_Year)
       ) {

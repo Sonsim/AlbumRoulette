@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function Header({ name, setUserLoggedIn }) {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ export default function Header({ name, setUserLoggedIn }) {
   };
 
   const logout = () => {
+    Cookies.remove("jwtToken");
+    Cookies.remove("username");
     setUserLoggedIn(null);
     localStorage.clear();
     navigate("/login");

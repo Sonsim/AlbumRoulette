@@ -14,4 +14,14 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["msnodesqlv8"],
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5174",
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      },
+    },
+  },
 });
